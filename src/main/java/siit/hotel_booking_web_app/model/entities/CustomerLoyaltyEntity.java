@@ -1,4 +1,4 @@
-package siit.hotel_booking_web_app.model;
+package siit.hotel_booking_web_app.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

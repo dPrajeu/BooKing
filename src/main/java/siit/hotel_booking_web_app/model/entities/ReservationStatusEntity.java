@@ -1,10 +1,8 @@
-package siit.hotel_booking_web_app.model;
-
+package siit.hotel_booking_web_app.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,10 +11,11 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roomtypes")
-public class RoomTypeEntity {
+@Table(name = "reservationstatus")
+public class ReservationStatusEntity {
     @Id
-    private Integer roomTypeId;
+    private Integer statusId;
 
-    private String roomType;
+    private Integer statusName;
+
 }
