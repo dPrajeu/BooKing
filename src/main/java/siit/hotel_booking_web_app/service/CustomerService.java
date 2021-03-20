@@ -48,13 +48,6 @@ public class CustomerService {
                 .collect(toList());
     }
 
-//    public List<CustomerDto> getByPhoneNumber(String phoneNumber) {
-//        return customerRepository.findByPhoneNumber(phoneNumber)
-//                .stream()
-//                .map(customerEntity -> customerNttToDtoMapper.mapEnttToDto(customerEntity))
-//                .collect(toList());
-//    }
-
     public CustomerCreateNewDto createCustomerNtt(CustomerCreateNewDto customerCreateNewDto) {
         CustomerEntity mappedNtt = customerDtoToNttMapper.mapDtoToNtt(customerCreateNewDto);
         CustomerEntity savedNtt = customerRepository.save(mappedNtt);
@@ -63,7 +56,7 @@ public class CustomerService {
 
 
     public void deleteCustomerNtt(Integer customerId) {
-      customerRepository.deleteById(customerId);
+        customerRepository.deleteById(customerId);
     }
 
     @Transactional
@@ -87,7 +80,7 @@ public class CustomerService {
 //
 //        Example <CustomerEntity> result  = Example.of(customerEntity,customerMatcher);
 
-        return  customerNttToDtoMapper.mapEnttToDto(customerEntity);
+        return customerNttToDtoMapper.mapEnttToDto(customerEntity);
 
     }
 

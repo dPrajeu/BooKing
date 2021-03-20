@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class HotelRequestDto {
-
-    private Integer hotelId;
+public class HotelCreateDto {
 
     private String hotelName;
 
@@ -28,6 +25,3 @@ public class HotelRequestDto {
 
     private Integer rating;
 }
-
-
-

@@ -31,4 +31,6 @@ public class HotelEntity {
 
     private String address;
 
+    private Integer rating;
+
 }
