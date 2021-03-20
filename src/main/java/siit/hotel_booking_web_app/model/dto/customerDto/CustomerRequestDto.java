@@ -1,22 +1,16 @@
-package siit.hotel_booking_web_app.model.entities;
+package siit.hotel_booking_web_app.model.dto.customerDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Table(name="customer")
-public class CustomerEntity {
+public class CustomerRequestDto {
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer customerId;
 
     private String firstName;

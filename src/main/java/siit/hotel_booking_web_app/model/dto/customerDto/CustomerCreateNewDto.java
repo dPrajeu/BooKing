@@ -5,20 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Table(name="customer")
-public class CustomerDto {
-
-    @Id
-    private Integer customerId;
+public class CustomerCreateNewDto {
 
     private String firstName;
 
@@ -38,5 +29,5 @@ public class CustomerDto {
 
     private String address;
 
-    private Integer loyaltyLevel;
 }
+
