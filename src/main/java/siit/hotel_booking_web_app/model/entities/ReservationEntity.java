@@ -4,9 +4,8 @@ package siit.hotel_booking_web_app.model.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -19,17 +18,25 @@ public class ReservationEntity {
     @Id
     private Integer reservationId;
 
-    private Integer customerId;
+    @OneToOne
+    @JoinColumn(name ="customerId", referencedColumnName = "customerId")
+    private CustomerEntity customerId;
 
-    private Integer hotel;
+    @OneToOne
+    @JoinColumn(name ="hotel", referencedColumnName = "hotelId")
+    private HotelEntity hotel;
+
+    @OneToOne
+    @JoinColumn (name="roomType", referencedColumnName = "roomTypeId")
+    private RoomTypeEntity roomType;
 
     private LocalDate checkIn;
 
     private LocalDate checkOut;
 
-    private Double priveTotal;
+    private Double priceTotal;
 
-    private Integer discount;
+    private Integer discountPercent;
 
     private Integer status;
 }
