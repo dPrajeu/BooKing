@@ -37,5 +37,7 @@ public class CustomerEntity {
 
     private String address;
 
-    private Integer loyaltyLevel;
+    @OneToOne
+    @JoinColumn(name = "loyaltyLevel", referencedColumnName = "loyaltyId")
+    private CustomerLoyaltyEntity loyaltyLevel;
 }

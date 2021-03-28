@@ -26,7 +26,7 @@ public class CustomerController {
     }
 
     //list customer details based on ID
-    //http://localhost:8080/front_page/customersdb/idnumber
+    //http://localhost:8080/front_page/customersdb/1
     @RequestMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CustomerRequestDto getCustomersById(@PathVariable(name = "customerId") Integer customerId) {
         return customerService.getCustomerById(customerId);

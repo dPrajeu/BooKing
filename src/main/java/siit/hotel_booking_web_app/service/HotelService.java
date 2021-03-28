@@ -11,6 +11,7 @@ import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
+import siit.hotel_booking_web_app.repository.HotelHasRoomsRepository;
 import siit.hotel_booking_web_app.repository.HotelRepository;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public class HotelService {
     private final HotelNttToDtoMapper hotelNttToDtoMapper;
     private final HotelDtoToNttMapper hotelDtoToNttMapper;
 
-
     public List<HotelRequestDto> returnAll() {
         return hotelRepository.findAll()
                 .stream()
@@ -38,6 +38,7 @@ public class HotelService {
         return hotelNttToDtoMapper.mapNttToDto(hotelRepository.findById(hotelId).orElseThrow());
 
     }
+
 
     public List<HotelRequestDto> returnAllByCountry(String country) {
         return hotelRepository.findAllByCountry(country)

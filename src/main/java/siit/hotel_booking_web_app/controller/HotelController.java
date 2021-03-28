@@ -34,6 +34,7 @@ public class HotelController {
         return hotelService.hotelById(hotelId);
     }
 
+
     //list hotels based on a given country
     //http://localhost:8080/front_page/hotelsdb/hotel_country=?country=china
     @RequestMapping(value = "/hotel_country={country}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +57,7 @@ public class HotelController {
         return hotelService.returnAllByRating(rating);
     }
 
+    //JSON entry to help test the add feature
     //create a new hotel
     //http://localhost:8080/front_page/hotelsdb/add_new_hotel
     //    {

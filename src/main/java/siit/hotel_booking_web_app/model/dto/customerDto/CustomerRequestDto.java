@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
 
 @Builder
 @AllArgsConstructor
@@ -31,5 +32,5 @@ public class CustomerRequestDto {
 
     private String address;
 
-    private Integer loyaltyLevel;
+    private CustomerLoyaltyEntity loyaltyLevel;
 }

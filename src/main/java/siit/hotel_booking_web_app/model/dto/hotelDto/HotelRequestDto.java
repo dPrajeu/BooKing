@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
+
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -27,6 +30,8 @@ public class HotelRequestDto {
     private String address;
 
     private Integer rating;
+
+    private List<HotelHasRoomsEntity> hotelHasRoomsEntitiesList;
 }
 
 

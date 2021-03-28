@@ -1,12 +1,16 @@
 package siit.hotel_booking_web_app.mapper.hotel;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 
+
+@RequiredArgsConstructor
 @Component
 public class HotelNttToDtoMapper {
+
 
     public HotelRequestDto mapNttToDto(HotelEntity ntt) {
 
@@ -19,6 +23,7 @@ public class HotelNttToDtoMapper {
                 .city(ntt.getCity())
                 .address(ntt.getAddress())
                 .rating(ntt.getRating())
+                .hotelHasRoomsEntitiesList(ntt.getHotelHasRoomsEntityList())
                 .build();
     }
 

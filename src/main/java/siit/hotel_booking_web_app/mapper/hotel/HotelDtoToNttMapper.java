@@ -2,7 +2,6 @@ package siit.hotel_booking_web_app.mapper.hotel;
 
 import org.springframework.stereotype.Component;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 
 @Component
@@ -18,6 +17,7 @@ public class HotelDtoToNttMapper {
                 .city(hotelCreateDto.getCity())
                 .address(hotelCreateDto.getAddress())
                 .rating(hotelCreateDto.getRating())
+//                .hotelHasRoomsEntityList(hotelCreateDto.getHotelHasRoomsEntitiesList())
                 .build();
     }
 

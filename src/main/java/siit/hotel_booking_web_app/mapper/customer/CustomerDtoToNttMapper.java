@@ -2,7 +2,6 @@ package siit.hotel_booking_web_app.mapper.customer;
 
 import org.springframework.stereotype.Component;
 import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerUpdateDto;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
 
 @Component
@@ -19,21 +18,21 @@ public class CustomerDtoToNttMapper {
                 .country(customerCreateNewDto.getCountry())
                 .city(customerCreateNewDto.getCity())
                 .address(customerCreateNewDto.getAddress())
-                .loyaltyLevel(1)
+                .loyaltyLevel(customerCreateNewDto.getLoyaltyLevel())
                 .build();
     }
 
-    public CustomerEntity updateCustomerMap(CustomerUpdateDto customerUpdateDto) {
-        return CustomerEntity.builder()
-                .firstName(customerUpdateDto.getFirstName())
-                .lastName(customerUpdateDto.getLastName())
-                .customerEmail(customerUpdateDto.getCustomerEmail())
-                .phoneNumber(customerUpdateDto.getPhoneNumber())
-                .country(customerUpdateDto.getCountry())
-                .city(customerUpdateDto.getCity())
-                .address(customerUpdateDto.getAddress())
-                .build();
-    }
+//    public CustomerEntity updateCustomerMap(CustomerUpdateDto customerUpdateDto) {
+//        return CustomerEntity.builder()
+//                .firstName(customerUpdateDto.getFirstName())
+//                .lastName(customerUpdateDto.getLastName())
+//                .customerEmail(customerUpdateDto.getCustomerEmail())
+//                .phoneNumber(customerUpdateDto.getPhoneNumber())
+//                .country(customerUpdateDto.getCountry())
+//                .city(customerUpdateDto.getCity())
+//                .address(customerUpdateDto.getAddress())
+//                .build();
+//    }
 
 
 }

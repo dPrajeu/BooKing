@@ -3,9 +3,8 @@ package siit.hotel_booking_web_app.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
 import siit.hotel_booking_web_app.service.ReservationService;
 
@@ -17,6 +16,8 @@ import java.util.List;
 public class ReservationsController {
     private final ReservationService reservationService;
 
+
+    //===========================------------------- GET Requests  -----------------===============================
     //get all reservations in database
     //http://localhost:8080/front_page/reservationsdb/get_all_reservations
     @RequestMapping(value = "/get_all_reservations", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,7 +25,7 @@ public class ReservationsController {
         return reservationService.findAllReservations();
     }
 
-    //get reservation by ID
+    //get reservation by ReservationID
     //http://localhost:8080/front_page/reservationsdb/reservationId?reservationId=1
     @RequestMapping(value = "/reservationId{reservationId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationById(@RequestParam(name = "reservationId") Integer reservationId) {
@@ -32,7 +33,7 @@ public class ReservationsController {
     }
 
 
-    //get reservation by ID
+    //get all reservations for CustomerID
     //http://localhost:8080/front_page/reservationsdb/reservation_for_customer?customerId=4
     @RequestMapping(value = "/reservation_for_customer{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationsByCustomerId(@RequestParam(name = "customerId") Integer customerId) {
@@ -51,9 +52,26 @@ public class ReservationsController {
     //get reservation by Hotel and customerId
     //http://localhost:8080/front_page/reservationsdb/reservation_by_?hotelId=4/?customerId=
     @RequestMapping(value = "/reservation_by_{hotel}{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReservationRequestDto> getReservationsByHotelAndCustomerId(@RequestParam(name = "hotel") Integer hotel, @RequestParam (name ="customerId") Integer customerId) {
+    public List<ReservationRequestDto> getReservationsFromHotelForCustomerId(@RequestParam(name = "hotel") Integer hotel, @RequestParam (name ="customerId") Integer customerId) {
 
-        return reservationService.findAllReservationsByHotelOrCustomer(hotel, customerId);
-
+        return reservationService.findAllReservationsFromHotelForCustomer(hotel, customerId);
     }
+
+    //get reservation by Reservation status
+    //http://localhost:8080/front_page/reservationsdb/reservation_by_?status=2
+    @RequestMapping(value = "/reservation_by_{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ReservationRequestDto> getReservationsByStatus (@RequestParam(name= "status") Integer status){
+        return  reservationService.findReservationsByStatus(status);
+    }
+
+    //===========================------------------- Create   -----------------===============================
+
+    //create a new reservation
+    //http://localhost:8080/front_page/reservationsdb/make_a_reservation
+//    @PostMapping(value = "/make_a_reservation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ReservationCreateNewDto createAReservationDto(@RequestBody ReservationCreateNewDto reservationCreateNewDto) {
+//
+//        return reservationService.createReservationNtt(reservationCreateNewDto);
+//    }
+
 }

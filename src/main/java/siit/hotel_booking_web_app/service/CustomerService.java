@@ -11,6 +11,8 @@ import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
 import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
 import siit.hotel_booking_web_app.model.dto.customerDto.CustomerUpdateDto;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
+import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
+import siit.hotel_booking_web_app.repository.CustomerLoyaltyRepository;
 import siit.hotel_booking_web_app.repository.CustomerRepository;
 
 
@@ -28,30 +30,34 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerNttToDtoMapper customerNttToDtoMapper;
     private final CustomerDtoToNttMapper customerDtoToNttMapper;
+    private final CustomerLoyaltyRepository customerLoyaltyRepository;
 
     public List<CustomerRequestDto> getAllCustomers() {
         return customerRepository.findAll()
                 .stream()
-                .map(customerEntity -> customerNttToDtoMapper.mapEnttToDto(customerEntity))
+                .map(customerEntity -> customerNttToDtoMapper.mapNttToDto(customerEntity))
                 .collect(toList());
     }
 
     public CustomerRequestDto getCustomerById(Integer id) {
-        return customerNttToDtoMapper.mapEnttToDto(customerRepository.findById(id).orElseThrow());
+        return customerNttToDtoMapper.mapNttToDto(customerRepository.findById(id).orElseThrow());
     }
 
 
     public List<CustomerRequestDto> getByLoyaltyLevel(Integer loyaltyLevel) {
-        return customerRepository.findAllByLoyaltyLevel(loyaltyLevel)
+
+        CustomerLoyaltyEntity customerLoyaltyEntity = customerLoyaltyRepository.findById(loyaltyLevel).orElseThrow();
+
+        return customerRepository.findAllByLoyaltyLevel(customerLoyaltyEntity)
                 .stream()
-                .map(customerEntity -> customerNttToDtoMapper.mapEnttToDto(customerEntity))
+                .map(customerEntity -> customerNttToDtoMapper.mapNttToDto(customerEntity))
                 .collect(toList());
     }
 
     public CustomerCreateNewDto createCustomerNtt(CustomerCreateNewDto customerCreateNewDto) {
         CustomerEntity mappedNtt = customerDtoToNttMapper.mapDtoToNtt(customerCreateNewDto);
         CustomerEntity savedNtt = customerRepository.save(mappedNtt);
-        return customerNttToDtoMapper.createEnttfromDto(savedNtt);
+        return customerNttToDtoMapper.createNttfromDto(savedNtt);
     }
 
 
@@ -71,16 +77,9 @@ public class CustomerService {
         customerEntity.setCountry(customerUpdateDto.getCountry());
         customerEntity.setCity(customerUpdateDto.getCity());
         customerEntity.setAddress(customerUpdateDto.getAddress());
+        customerEntity.setLoyaltyLevel(customerLoyaltyRepository.getOne(customerUpdateDto.getLoyaltyLevel()));
 
-
-//        ExampleMatcher customerMatcher = ExampleMatcher.matchingAny()
-//                .withMatcher("customerId", ExampleMatcher.GenericPropertyMatchers.contains())
-//                .withMatcher("phoneNumber", ExampleMatcher.GenericPropertyMatchers.contains())
-//                .withMatcher("socialId", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
-//
-//        Example <CustomerEntity> result  = Example.of(customerEntity,customerMatcher);
-
-        return customerNttToDtoMapper.mapEnttToDto(customerEntity);
+        return customerNttToDtoMapper.mapNttToDto(customerEntity);
 
     }
 

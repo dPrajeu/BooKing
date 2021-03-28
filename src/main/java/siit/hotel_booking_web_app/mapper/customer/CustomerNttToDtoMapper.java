@@ -8,7 +8,7 @@ import siit.hotel_booking_web_app.model.entities.CustomerEntity;
 @Component
 public class CustomerNttToDtoMapper {
 
-    public CustomerRequestDto mapEnttToDto(CustomerEntity ntt) {
+    public CustomerRequestDto mapNttToDto(CustomerEntity ntt) {
 
         return CustomerRequestDto.builder()
                 .customerId(ntt.getCustomerId())
@@ -25,7 +25,7 @@ public class CustomerNttToDtoMapper {
                 .build();
     }
 
-    public CustomerCreateNewDto createEnttfromDto(CustomerEntity ntt) {
+    public CustomerCreateNewDto createNttfromDto(CustomerEntity ntt) {
 
         return CustomerCreateNewDto.builder()
                 .firstName(ntt.getFirstName())

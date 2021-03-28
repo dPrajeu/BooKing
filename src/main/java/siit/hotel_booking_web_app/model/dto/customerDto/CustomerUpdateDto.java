@@ -35,4 +35,7 @@ public class CustomerUpdateDto {
     @NotNull(message = "The address may not be null.")
     private String address;
 
+    @NotNull(message = "The loyalty level may not be null.")
+    private Integer loyaltyLevel;
+
 }

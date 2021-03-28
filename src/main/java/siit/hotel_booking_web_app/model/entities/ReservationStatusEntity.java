@@ -12,10 +12,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "reservationstatus")
+
 public class ReservationStatusEntity {
     @Id
     private Integer statusId;
 
-    private Integer statusName;
+    private String statusName;
 
 }
