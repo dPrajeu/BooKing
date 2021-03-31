@@ -10,8 +10,9 @@ public class HotelHasRoomsNttToDtoMapper {
     public HotelHasRoomsRequestDto mapNttToDto(HotelHasRoomsEntity ntt) {
 
         return HotelHasRoomsRequestDto.builder()
-                .roomType(ntt.getRoomType())
+                .hotelWithRooms(ntt.getHotelWithRooms())
                 .hotelId(ntt.getHotelId())
+                .roomType(ntt.getRoomType())
                 .roomQuantity(ntt.getRoomQuantity())
                 .pricePerNight(ntt.getPricePerNight())
                 .build();
