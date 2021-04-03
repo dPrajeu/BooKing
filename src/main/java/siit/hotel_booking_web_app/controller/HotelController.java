@@ -43,7 +43,6 @@ public class HotelController {
         return hotelService.returnAllByCountry(country);
     }
 
-
     //list hotels based on a given city
     //http://localhost:8080/front_page/hotelsdb/hotel_country_city=?city=Gaobu
     @RequestMapping(value = "/hotel_country_city={city}", produces = MediaType.APPLICATION_JSON_VALUE)

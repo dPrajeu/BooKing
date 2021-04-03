@@ -98,7 +98,7 @@ public class HotelService {
         HotelEntity mappedHotelNtt = hotelDtoToNttMapper.mapNttToDto(hotelCreateDto);
         HotelEntity saveHotelNtt = hotelRepository.save(mappedHotelNtt);
 
-        hotelCreateDto.getHotelHasRoomsEntitiesList().stream()
+        saveHotelNtt.getHotelHasRoomsEntityList().stream()
                 .map(h -> HotelHasRoomsEntity.builder()
                         .hotelWithRooms(HotelHasRoomCompositPK.builder()
                                 .hotelId(saveHotelNtt.getHotelId())

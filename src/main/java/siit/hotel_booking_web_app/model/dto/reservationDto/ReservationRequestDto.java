@@ -19,11 +19,17 @@ public class ReservationRequestDto {
 
     private Integer reservationId;
 
-    private CustomerEntity customerId;
+    private String customerName;
 
-    private HotelEntity hotel;
+    private Integer hotelId;
 
-    private RoomTypeEntity roomType;
+    private String hotelName;
+
+    private Integer roomTypeId;
+
+    private String roomTypeName;
+
+    private Double pricePerNight;
 
     private LocalDate checkIn;
 
@@ -33,5 +39,5 @@ public class ReservationRequestDto {
 
     private Integer discountPercent;
 
-    private ReservationStatusEntity status;
+    private String status;
 }
