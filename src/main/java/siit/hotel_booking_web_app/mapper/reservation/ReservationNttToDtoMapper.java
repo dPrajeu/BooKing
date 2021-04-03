@@ -23,8 +23,6 @@ public class ReservationNttToDtoMapper {
 
     public ReservationRequestDto mapNttToDto(ReservationEntity reservationEntity) {
 
-        new BigDecimal(reservationEntity.getPriceTotal() / (int) ChronoUnit.DAYS.between(reservationEntity.getCheckIn(), reservationEntity.getCheckOut())).setScale(2, RoundingMode.HALF_UP);
-
         return ReservationRequestDto.builder()
                 .reservationId(reservationEntity.getReservationId())
                 .customerName(reservationEntity.getCustomerId().getFirstName().concat(" " + reservationEntity.getCustomerId().getLastName()))
@@ -41,17 +39,15 @@ public class ReservationNttToDtoMapper {
                 .build();
     }
 
-    public ReservationCreateNewDto createNttfromDto(ReservationEntity savedNtt) {
+    public ReservationCreateNewDto createDTOFromNTT(ReservationEntity savedNtt) {
+
         return ReservationCreateNewDto.builder()
-//                .reservationId(savedNtt.getReservationId())
                 .customerId(savedNtt.getCustomerId())
                 .hotel(savedNtt.getHotel())
                 .roomType(savedNtt.getRoomType())
                 .checkIn(savedNtt.getCheckIn())
                 .checkOut(savedNtt.getCheckOut())
-//                .priceTotal(savedNtt.getPriceTotal())
-//                .discountPercent(savedNtt.getDiscountPercent())
-//                .status(savedNtt.getStatus().getStatusId())
                 .build();
     }
+
 }

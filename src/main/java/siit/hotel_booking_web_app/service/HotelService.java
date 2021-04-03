@@ -41,11 +41,6 @@ public class HotelService {
                 .collect(toList());
     }
 
-//    public HotelRequestDto hotelById(Integer hotelId) {
-//        return hotelNttToDtoMapper.mapNttToDto(hotelRepository.findById(hotelId).orElseThrow());
-//
-
-//    }
     public HotelRequestWithFilteredRoomDetailsDTO hotelById(Integer hotelId) {
         return hotelNttToDtoMapper.mapNttToDtoSecond(hotelRepository.findById(hotelId).orElseThrow());
 
@@ -110,14 +105,6 @@ public class HotelService {
         hotelEntity.setCity(hotelUpdateDto.getCity());
         hotelEntity.setAddress(hotelUpdateDto.getAddress());
         hotelEntity.setRating(hotelUpdateDto.getRating());
-
-
-//        ExampleMatcher customerMatcher = ExampleMatcher.matchingAny()
-//                .withMatcher("customerId", ExampleMatcher.GenericPropertyMatchers.contains())
-//                .withMatcher("phoneNumber", ExampleMatcher.GenericPropertyMatchers.contains())
-//                .withMatcher("socialId", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
-//
-//        Example <CustomerEntity> result  = Example.of(customerEntity,customerMatcher);
 
         return hotelNttToDtoMapper.mapNttToDto(hotelEntity);
 

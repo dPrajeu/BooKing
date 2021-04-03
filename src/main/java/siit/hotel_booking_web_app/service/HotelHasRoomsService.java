@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import siit.hotel_booking_web_app.mapper.hotelHasRooms.HotelHasRoomsNttToDtoMapper;
 import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsRequestDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
-import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
 import siit.hotel_booking_web_app.repository.HotelHasRoomsRepository;
 import siit.hotel_booking_web_app.repository.HotelRepository;
 
@@ -50,10 +49,25 @@ public class HotelHasRoomsService {
     public List<HotelHasRoomsRequestDto> findByHotelId(Integer hotelId) {
         HotelEntity hotelEntity = hotelRepository.findById(hotelId).orElseThrow();
 
-        return hotelHasRoomsRepository.findByHotelId(hotelEntity)
+        return hotelHasRoomsRepository.findAllByHotelId(hotelEntity)
                 .stream()
                 .map(hotelHasRoomsEntity -> hotelHasRoomsNttToDtoMapper.mapNttToDto(hotelHasRoomsEntity))
 //                .sorted(Comparator.comparing(HotelHasRoomsRequestDto::getHotelName))
                 .collect(toList());
     }
+//
+//    public List<HotelHasRoomsRequestDto> updateHotelRoomsDetailsNTT(HotelHasRoomsRequestDto hotelHasRoomsRequestDto) {
+//        Optional<HotelHasRoomsEntity> byId = hotelHasRoomsRepository.findById(hotelHasRoomsRequestDto.getHotelId(),hotelHasRoomsRequestDto.ge);
+//        HotelEntity hotelEntity = byId.orElseThrow(() -> new HotelNotFoundException("No customer was found for the given ID: " + hotelUpdateDto.getHotelId()));
+//
+//        hotelEntity.setHotelName(hotelUpdateDto.getHotelName());
+//        hotelEntity.setPhoneNumber(hotelUpdateDto.getPhoneNumber());
+//        hotelEntity.setHotelEmail(hotelUpdateDto.getHotelEmail());
+//        hotelEntity.setCountry(hotelUpdateDto.getCountry());
+//        hotelEntity.setCity(hotelUpdateDto.getCity());
+//        hotelEntity.setAddress(hotelUpdateDto.getAddress());
+//        hotelEntity.setRating(hotelUpdateDto.getRating());
+//
+//        return hotelNttToDtoMapper.mapNttToDto(hotelEntity);
+//    }
 }

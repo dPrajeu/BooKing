@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @Builder
 public class HotelRequestWithFilteredRoomDetailsDTO {
+
     private Integer hotelId;
     private String hotelName;
     private String phoneNumber;

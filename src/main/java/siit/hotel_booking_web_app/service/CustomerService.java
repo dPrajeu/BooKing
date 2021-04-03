@@ -57,7 +57,7 @@ public class CustomerService {
     public CustomerCreateNewDto createCustomerNtt(CustomerCreateNewDto customerCreateNewDto) {
         CustomerEntity mappedNtt = customerDtoToNttMapper.mapDtoToNtt(customerCreateNewDto);
         CustomerEntity savedNtt = customerRepository.save(mappedNtt);
-        return customerNttToDtoMapper.createNttfromDto(savedNtt);
+        return customerNttToDtoMapper.createNttFromDto(savedNtt);
     }
 
 

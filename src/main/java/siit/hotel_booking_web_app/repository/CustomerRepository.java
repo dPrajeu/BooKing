@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer> {
 
     List<CustomerEntity> findAllByLoyaltyLevel(CustomerLoyaltyEntity customerLoyaltyEntity);
+    CustomerEntity findByCustomerId(Integer customerId);
 
 //    Optional<CustomerEntity> findByPhoneNumber(String phoneNumber);
 

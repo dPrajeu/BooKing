@@ -10,7 +10,6 @@ public class HotelDtoToNttMapper {
     public HotelEntity mapNttToDto(HotelCreateDto hotelCreateDto) {
 
         return HotelEntity.builder()
-//                .hotelId(500)
                 .hotelName(hotelCreateDto.getHotelName())
                 .phoneNumber(hotelCreateDto.getPhoneNumber())
                 .hotelEmail(hotelCreateDto.getHotelEmail())
@@ -18,9 +17,6 @@ public class HotelDtoToNttMapper {
                 .city(hotelCreateDto.getCity())
                 .address(hotelCreateDto.getAddress())
                 .rating(hotelCreateDto.getRating())
-//                .hotelHasRoomsEntityList(hotelCreateDto.getHotelHasRoomsEntitiesList())
                 .build();
     }
-
-
 }

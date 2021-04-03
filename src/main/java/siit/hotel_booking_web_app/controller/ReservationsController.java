@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationFromDTOtoNTT;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
 import siit.hotel_booking_web_app.service.ReservationService;
 
@@ -52,7 +53,7 @@ public class ReservationsController {
     //get reservation by Hotel and customerId
     //http://localhost:8080/front_page/reservationsdb/return_reservation_?hotel=25&customerId=35
     @RequestMapping(value = "/return_reservation_{hotel}{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReservationRequestDto> getReservationsFromHotelForCustomerId(@RequestParam(name = "hotel") Integer hotel, @RequestParam (name ="customerId") Integer customerId) {
+    public List<ReservationRequestDto> getReservationsFromHotelForCustomerId(@RequestParam(name = "hotel") Integer hotel, @RequestParam(name = "customerId") Integer customerId) {
 
         return reservationService.findAllReservationsFromHotelForCustomer(hotel, customerId);
     }
@@ -60,18 +61,17 @@ public class ReservationsController {
     //get reservation by Reservation status
     //http://localhost:8080/front_page/reservationsdb/reservation_by_?status=2
     @RequestMapping(value = "/reservation_by_{status}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReservationRequestDto> getReservationsByStatus (@RequestParam(name= "status") Integer status){
-        return  reservationService.findReservationsByStatus(status);
+    public List<ReservationRequestDto> getReservationsByStatus(@RequestParam(name = "status") Integer status) {
+        return reservationService.findReservationsByStatus(status);
     }
 
     //===========================------------------- Create   -----------------===============================
 
     //create a new reservation
     //http://localhost:8080/front_page/reservationsdb/make_a_reservation
-//    @PostMapping(value = "/make_a_reservation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ReservationCreateNewDto createAReservationDto(@RequestBody ReservationCreateNewDto reservationCreateNewDto) {
-//
-//        return reservationService.createReservationNtt(reservationCreateNewDto);
-//    }
+    @PostMapping(value = "/make_a_reservation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ReservationRequestDto createAReservation(@RequestBody ReservationFromDTOtoNTT reservationFromDTOtoNTT) {
+        return reservationService.createReservationNtt(reservationFromDTOtoNTT);
+    }
 
 }

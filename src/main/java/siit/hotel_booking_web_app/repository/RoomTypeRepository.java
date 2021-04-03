@@ -6,4 +6,5 @@ import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
 
 @Repository
 public interface RoomTypeRepository extends JpaRepository<RoomTypeEntity, Integer> {
+    RoomTypeEntity findByRoomTypeId (Integer roomTypeId);
 }

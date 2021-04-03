@@ -16,21 +16,13 @@ import java.util.List;
 public class HotelRequestDto {
 
     private Integer hotelId;
-
     private String hotelName;
-
     private String phoneNumber;
-
     private String hotelEmail;
-
     private String country;
-
     private String city;
-
     private String address;
-
     private Integer rating;
-
     private List<HotelHasRoomsEntity> hotelHasRoomsEntitiesList;
 
 }

@@ -1,6 +1,7 @@
 package siit.hotel_booking_web_app.model.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,16 +22,19 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer reservationId;
 
-    @OneToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
+    @JsonManagedReference
     private CustomerEntity customerId;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel", referencedColumnName = "hotelId")
+    @JsonManagedReference
     private HotelEntity hotel;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roomType", referencedColumnName = "roomTypeId")
+    @JsonManagedReference
     private RoomTypeEntity roomType;
 
     private LocalDate checkIn;

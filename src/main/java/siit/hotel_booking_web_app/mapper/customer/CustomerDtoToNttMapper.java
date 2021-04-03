@@ -21,18 +21,4 @@ public class CustomerDtoToNttMapper {
                 .loyaltyLevel(customerCreateNewDto.getLoyaltyLevel())
                 .build();
     }
-
-//    public CustomerEntity updateCustomerMap(CustomerUpdateDto customerUpdateDto) {
-//        return CustomerEntity.builder()
-//                .firstName(customerUpdateDto.getFirstName())
-//                .lastName(customerUpdateDto.getLastName())
-//                .customerEmail(customerUpdateDto.getCustomerEmail())
-//                .phoneNumber(customerUpdateDto.getPhoneNumber())
-//                .country(customerUpdateDto.getCountry())
-//                .city(customerUpdateDto.getCity())
-//                .address(customerUpdateDto.getAddress())
-//                .build();
-//    }
-
-
 }

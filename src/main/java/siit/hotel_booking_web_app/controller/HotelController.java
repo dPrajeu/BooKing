@@ -1,6 +1,5 @@
 package siit.hotel_booking_web_app.controller;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +10,7 @@ import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
 import siit.hotel_booking_web_app.service.HotelService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -42,9 +42,6 @@ public class HotelController {
         return hotelService.hotelWithAllDetailsById(hotelId);
     }
 
-
-
-
     //list hotels based on a given country
     //http://localhost:8080/front_page/hotelsdb/hotel_country=?country=china
     @RequestMapping(value = "/hotel_country={country}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,16 +66,53 @@ public class HotelController {
     //JSON entry to help test the add feature
     //create a new hotel
     //http://localhost:8080/front_page/hotelsdb/add_new_hotel
-    //    {
-    //        "hotelName": "Hilton",
-    //            "phoneNumber": "+40 47645551",
-    //            "hotelEmail": "hilton@hilton.ro",
-    //            "country": "Romania",
-    //            "city": "Bucuresti",
-    //            "address": "Panselutelor 56",
-    //            "rating": 5
-    //    }
-    @PutMapping(value = "/add_new_hotel", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    //{
+    //   "hotelName": "srerter",
+    //        "phoneNumber": "5523421342329",
+    //        "hotelEmail": "ro3242334@izo.com",
+    //        "country": "Romania",
+    //        "city": "Brasov",
+    //        "address": "sad234ddm 232",
+    //        "rating": 2,
+    //   "hotelHasRoomsEntitiesList": [
+    //        {
+    //            "hotelWithRooms": {
+    //                "roomType": 1
+    //            },
+    //            "roomQuantity": 38,
+    //            "pricePerNight": 6.3
+    //        },
+    //        {
+    //            "hotelWithRooms": {
+    //                "roomType": 2
+    //            },
+    //            "roomQuantity": 47,
+    //            "pricePerNight": 12.08
+    //        },
+    //        {
+    //            "hotelWithRooms": {
+    //                "roomType": 3
+    //            },
+    //            "roomQuantity": 22,
+    //            "pricePerNight": 20.32
+    //        },
+    //        {
+    //            "hotelWithRooms": {
+    //                "roomType": 4
+    //            },
+    //            "roomQuantity": 22,
+    //            "pricePerNight": 30.86
+    //        },
+    //        {
+    //            "hotelWithRooms": {
+    //                "roomType": 5
+    //            },
+    //            "roomQuantity": 44,
+    //            "pricePerNight": 40.37
+    //        }
+    //    ]
+    //}
+    @PostMapping(value = "/add_new_hotel", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public HotelCreateDto addANewHotelFromInput(@RequestBody HotelCreateDto hotelCreateDto) {
         return hotelService.createHotelNtt(hotelCreateDto);
     }
@@ -87,7 +121,7 @@ public class HotelController {
     //http://localhost:8080/front_page/hotelsdb/update33
     @PutMapping(value = "/update{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public HotelRequestDto updateHotelDetails(@PathVariable(name = "hotelId") Integer hotelId,
-                                              @RequestBody @Valid HotelUpdateDto hotelUpdateDto) {
+                                              @RequestBody @Valid @NotNull HotelUpdateDto hotelUpdateDto) {
         hotelUpdateDto.setHotelId(hotelId);
         return hotelService.updateHotelNtt(hotelUpdateDto);
     }
@@ -99,5 +133,13 @@ public class HotelController {
         hotelService.deleteHotelById(hotelId);
     }
 
+//    //update a hotel data by ID
+//    //http://localhost:8080/front_page/hotelsdb/update33
+//    @PutMapping(value = "/update{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public HotelRequestDto updateHotelRooms(@PathVariable(name = "hotelId") Integer hotelId,
+//                                              @RequestBody @Valid @NotNull HotelUpdateDto hotelUpdateDto) {
+//        hotelUpdateDto.setHotelId(hotelId);
+//        return hotelService.updateHotelNtt(hotelUpdateDto);
+//    }
 
 }

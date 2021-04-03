@@ -13,4 +13,6 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Integer> {
     List<HotelEntity> findAllByCity(String city);
 
     List<HotelEntity> findAllByRating(Integer rating);
+
+    HotelEntity findByHotelId (Integer hotelId);
 }

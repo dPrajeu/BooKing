@@ -25,7 +25,7 @@ public class CustomerNttToDtoMapper {
                 .build();
     }
 
-    public CustomerCreateNewDto createNttfromDto(CustomerEntity ntt) {
+    public CustomerCreateNewDto createNttFromDto(CustomerEntity ntt) {
 
         return CustomerCreateNewDto.builder()
                 .firstName(ntt.getFirstName())
@@ -37,7 +37,6 @@ public class CustomerNttToDtoMapper {
                 .country(ntt.getCountry())
                 .city(ntt.getCity())
                 .address(ntt.getAddress())
-
                 .build();
     }
 
