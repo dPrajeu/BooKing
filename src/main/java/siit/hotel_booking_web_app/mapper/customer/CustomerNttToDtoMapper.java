@@ -37,6 +37,7 @@ public class CustomerNttToDtoMapper {
                 .country(ntt.getCountry())
                 .city(ntt.getCity())
                 .address(ntt.getAddress())
+
                 .build();
     }
 

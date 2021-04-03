@@ -15,11 +15,18 @@ import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
 @Builder
 public class HotelHasRoomsRequestDto {
 
-    private HotelHasRoomCompositPK hotelWithRooms;
+//    private HotelHasRoomCompositPK hotelWithRooms;
+//
+//    private HotelEntity hotelId;
+//    private RoomTypeEntity roomType;
 
-    private HotelEntity hotelId;
+    private Integer hotelId;
 
-    private RoomTypeEntity roomType;
+    private String hotelName;
+
+    private Integer roomTypeId;
+
+    private String roomTypeName;
 
     private Integer roomQuantity;
 

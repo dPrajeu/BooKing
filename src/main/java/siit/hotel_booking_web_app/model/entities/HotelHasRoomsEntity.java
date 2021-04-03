@@ -23,13 +23,13 @@ public class HotelHasRoomsEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("hotelId")
     @JoinColumn(name = "hotelId", referencedColumnName = "hotelId")
-    @JsonBackReference
+    @JsonBackReference (value = "hotelId")
     private HotelEntity hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("roomType")
     @JoinColumn (name = "roomType", referencedColumnName = "roomTypeId")
-    @JsonBackReference
+    @JsonBackReference (value = "roomType")
     private RoomTypeEntity roomType;
 
     private Integer roomQuantity;

@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
+import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithRoomDetailsDTO;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
 import siit.hotel_booking_web_app.service.HotelService;
 
@@ -30,7 +31,7 @@ public class HotelController {
     //list hotel details based on ID
     //http://localhost:8080/front_page/hotelsdb/hotelId=?hotelId=1
     @RequestMapping(value = "/hotelId={hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HotelRequestDto getHotelById(@RequestParam(name = "hotelId") Integer hotelId) {
+    public HotelRequestWithRoomDetailsDTO getHotelById(@RequestParam(name = "hotelId") Integer hotelId) {
         return hotelService.hotelById(hotelId);
     }
 

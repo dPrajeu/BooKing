@@ -37,7 +37,7 @@ public class HotelEntity {
 
     private Integer rating;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "hotelId")
     @OneToMany(mappedBy = "hotelId",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<HotelHasRoomsEntity> hotelHasRoomsEntityList;
 
