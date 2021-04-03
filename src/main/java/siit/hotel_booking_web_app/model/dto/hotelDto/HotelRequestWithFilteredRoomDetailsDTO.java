@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class HotelRequestWithRoomDetailsDTO {
+public class HotelRequestWithFilteredRoomDetailsDTO {
     private Integer hotelId;
     private String hotelName;
     private String phoneNumber;

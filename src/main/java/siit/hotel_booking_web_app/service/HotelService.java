@@ -9,7 +9,7 @@ import siit.hotel_booking_web_app.mapper.hotel.HotelDtoToNttMapper;
 import siit.hotel_booking_web_app.mapper.hotel.HotelNttToDtoMapper;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithRoomDetailsDTO;
+import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithFilteredRoomDetailsDTO;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomCompositPK;
@@ -44,11 +44,15 @@ public class HotelService {
 //    public HotelRequestDto hotelById(Integer hotelId) {
 //        return hotelNttToDtoMapper.mapNttToDto(hotelRepository.findById(hotelId).orElseThrow());
 //
-//    }
 
-    public HotelRequestWithRoomDetailsDTO hotelById(Integer hotelId) {
+//    }
+    public HotelRequestWithFilteredRoomDetailsDTO hotelById(Integer hotelId) {
         return hotelNttToDtoMapper.mapNttToDtoSecond(hotelRepository.findById(hotelId).orElseThrow());
 
+    }
+
+    public HotelRequestDto hotelWithAllDetailsById(Integer hotelId) {
+        return hotelNttToDtoMapper.mapNttToDto(hotelRepository.findById(hotelId).orElseThrow());
     }
 
     public List<HotelRequestDto> returnAllByCountry(String country) {
@@ -73,44 +77,24 @@ public class HotelService {
                 .collect(toList());
     }
 
-//    public HotelCreateDto createHotelNtt(HotelCreateDto hotelCreateDto) {
-//        HotelEntity mappedHotelNtt = hotelDtoToNttMapper.mapNttToDto(hotelCreateDto);
-//        HotelEntity saveHotelNtt = hotelRepository.save(mappedHotelNtt);
-//
-//        hotelCreateDto.getHotelHasRoomsEntitiesList().stream()
-//                .map(h -> HotelHasRoomsEntity.builder()
-//                        .hotelWithRooms(HotelHasRoomCompositPK.builder()
-//                                .hotelId(saveHotelNtt.getHotelId())
-//                                .roomType(h.getRoomType().getRoomTypeId())
-//                                .build())
-//                        .hotelId(saveHotelNtt)
-//                        .roomType(h.getRoomType())
-//                        .roomQuantity(h.getRoomQuantity())
-//                        .pricePerNight(h.getPricePerNight())
-//                        .build())
-//                .forEach(s -> hotelHasRoomsRepository.save(s));
-//
-//        return hotelNttToDtoMapper.createNTTfromDTO(saveHotelNtt);
-//    }
-
-
     public HotelCreateDto createHotelNtt(HotelCreateDto hotelCreateDto) {
         HotelEntity mappedHotelNtt = hotelDtoToNttMapper.mapNttToDto(hotelCreateDto);
         HotelEntity saveHotelNtt = hotelRepository.save(mappedHotelNtt);
 
-        saveHotelNtt.getHotelHasRoomsEntityList().stream()
+        hotelCreateDto.getHotelHasRoomsEntitiesList().stream()
                 .map(h -> HotelHasRoomsEntity.builder()
                         .hotelWithRooms(HotelHasRoomCompositPK.builder()
                                 .hotelId(saveHotelNtt.getHotelId())
                                 .roomType(h.getHotelWithRooms().getRoomType())
                                 .build())
                         .hotelId(saveHotelNtt)
-                        .roomType(roomTypeRepository.getOne(h.getRoomType().getRoomTypeId()))
+                        .roomType(roomTypeRepository.getOne(h.getHotelWithRooms().getRoomType()))
                         .roomQuantity(h.getRoomQuantity())
                         .pricePerNight(h.getPricePerNight())
                         .build())
                 .collect(toList())
                 .forEach(hotelHasRoomsRepository::save);
+
         return hotelNttToDtoMapper.createDTOfromNtt(saveHotelNtt);
     }
 

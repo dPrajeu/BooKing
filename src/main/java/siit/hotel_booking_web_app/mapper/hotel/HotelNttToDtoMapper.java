@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithRoomDetailsDTO;
-import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsRequestDto;
+import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithFilteredRoomDetailsDTO;
 import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsRequestWithoutHotelDetailsDTO;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
-import siit.hotel_booking_web_app.service.HotelHasRoomsService;
 
 import java.util.stream.Collectors;
 
@@ -29,7 +27,7 @@ public class HotelNttToDtoMapper {
                 .city(ntt.getCity())
                 .address(ntt.getAddress())
                 .rating(ntt.getRating())
-//                .hotelHasRoomsEntitiesList(ntt.getHotelHasRoomsEntityList())
+                .hotelHasRoomsEntitiesList(ntt.getHotelHasRoomsEntityList())
                 .build();
     }
 
@@ -47,9 +45,9 @@ public class HotelNttToDtoMapper {
                 .build();
     }
 
-    public HotelRequestWithRoomDetailsDTO mapNttToDtoSecond(HotelEntity ntt) {
+    public HotelRequestWithFilteredRoomDetailsDTO mapNttToDtoSecond(HotelEntity ntt) {
 
-        return HotelRequestWithRoomDetailsDTO.builder()
+        return HotelRequestWithFilteredRoomDetailsDTO.builder()
                 .hotelId(ntt.getHotelId())
                 .hotelName(ntt.getHotelName())
                 .phoneNumber(ntt.getPhoneNumber())

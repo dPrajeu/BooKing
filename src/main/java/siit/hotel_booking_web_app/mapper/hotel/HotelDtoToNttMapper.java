@@ -18,7 +18,7 @@ public class HotelDtoToNttMapper {
                 .city(hotelCreateDto.getCity())
                 .address(hotelCreateDto.getAddress())
                 .rating(hotelCreateDto.getRating())
-                .hotelHasRoomsEntityList(hotelCreateDto.getHotelHasRoomsEntitiesList())
+//                .hotelHasRoomsEntityList(hotelCreateDto.getHotelHasRoomsEntitiesList())
                 .build();
     }
 
