@@ -22,19 +22,16 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer reservationId;
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
-    @JsonManagedReference
     private CustomerEntity customerId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "hotel", referencedColumnName = "hotelId")
-    @JsonManagedReference
     private HotelEntity hotel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "roomType", referencedColumnName = "roomTypeId")
-    @JsonManagedReference
     private RoomTypeEntity roomType;
 
     private LocalDate checkIn;

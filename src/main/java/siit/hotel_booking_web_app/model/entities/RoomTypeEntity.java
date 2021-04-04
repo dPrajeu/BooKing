@@ -31,6 +31,7 @@ public class RoomTypeEntity {
     @NaturalId
     private String roomType;
 
+
     @JsonManagedReference(value = "roomType")
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelHasRoomsEntity> hotelHasRoomsEntitiesList = new ArrayList<>();
