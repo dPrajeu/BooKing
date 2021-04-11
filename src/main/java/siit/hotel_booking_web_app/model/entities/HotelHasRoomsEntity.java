@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Objects;
 
-@ToString
 @Builder
 @Data
 @AllArgsConstructor

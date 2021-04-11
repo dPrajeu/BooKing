@@ -10,7 +10,7 @@ import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsUpdate
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomCompositPK;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
-import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
+
 import siit.hotel_booking_web_app.repository.HotelHasRoomsRepository;
 import siit.hotel_booking_web_app.repository.HotelRepository;
 import siit.hotel_booking_web_app.repository.RoomTypeRepository;

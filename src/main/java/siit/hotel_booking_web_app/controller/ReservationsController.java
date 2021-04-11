@@ -4,11 +4,14 @@ package siit.hotel_booking_web_app.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationFromDTOtoNTT;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
+import siit.hotel_booking_web_app.model.entities.ReservationEntity;
 import siit.hotel_booking_web_app.service.ReservationService;
 
+import java.awt.*;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -71,9 +74,18 @@ public class ReservationsController {
     //create a new reservation
     //http://localhost:8080/front_page/reservationsdb/make_a_reservation
     @PostMapping(value = "/make_a_reservation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ReservationRequestDto createAReservation(@RequestBody ReservationFromDTOtoNTT reservationFromDTOtoNTT) {
+    public ReservationEntity createAReservation(@RequestBody ReservationFromDTOtoNTT reservationFromDTOtoNTT) {
         return reservationService.createReservationNtt(reservationFromDTOtoNTT);
     }
+
+    //create bulk reservations from file (Note: works with customers registered/already in the database)
+    //http://localhost:8080/front_page/reservationsdb/bulk_reservation
+    @PostMapping("/bulk_reservation")
+    public List<ReservationCreateNewDto> makeBulkReservations(@RequestParam(name="file") MultipartFile file){
+        return reservationService.createBulkReservationsFromFile(file);
+    }
+
+
 
     //===========================------------------- Update   -----------------===============================
 
