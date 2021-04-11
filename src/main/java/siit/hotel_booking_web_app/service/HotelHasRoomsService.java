@@ -64,5 +64,6 @@ public class HotelHasRoomsService {
         HotelHasRoomsEntity hotelHasRoomsEntity = hotelHasRoomsRepository.findById(new HotelHasRoomCompositPK(hotelId, roomType)).orElseThrow();
         hotelHasRoomsEntity.setRoomQuantity(hotelHasRoomsUpdateDTO.getRoomQuantity());
         hotelHasRoomsEntity.setPricePerNight(hotelHasRoomsUpdateDTO.getPricePerNight());
+        hotelHasRoomsRepository.save(hotelHasRoomsEntity);
     }
 }
