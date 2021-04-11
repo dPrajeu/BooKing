@@ -21,13 +21,25 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     List<ReservationEntity> findAllByCheckOutBefore (LocalDate localDate);
 
     @Query(value = "SELECT COUNT(*) AS total_bookings\n" +
-            "FROM reservations rs\n" +
-            "WHERE rs.hotel= :hotel\n" +
-            "AND rs.roomType= :roomType\n" +
-            "AND rs.checkIn >=  :checkIn\n" +
-            "AND rs.checkOut <= :checkOut", nativeQuery = true)
+            "FROM reservations\n" +
+            "WHERE reservations.hotel= :hotel\n" +
+            "AND reservations.roomType= :roomType\n" +
+            "AND reservations.checkIn >=  :checkIn\n" +
+            "AND reservations.checkOut <= :checkOut\n" +
+            "AND reservations.status != 4", nativeQuery = true)
     Integer getReservationValidation (@Param("hotel") Integer hotel, @Param("roomType") Integer roomType,
                                       @Param("checkIn")LocalDate checkIn, @Param("checkOut") LocalDate checkOut);
+
+
+    @Query(value = "SELECT *" +
+            "FROM reservations\n" +
+            "WHERE reservations.customerId= :customerId\n" +
+            "AND reservations.hotel= :hotel\n" +
+            "AND reservations.roomType= :roomType\n" +
+            "AND reservations.checkIn >=  :checkIn\n" +
+            "AND reservations.checkOut <= :checkOut\n" +
+            "AND reservations.status != 4", nativeQuery = true)
+    ReservationEntity checkForDuplicates (@Param("customerId")Integer customerId, @Param("hotel") Integer hotel, @Param("roomType") Integer roomType,@Param("checkIn")LocalDate checkIn, @Param("checkOut") LocalDate checkOut);
 
 
 }

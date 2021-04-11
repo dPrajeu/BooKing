@@ -94,6 +94,7 @@ public class ReservationService {
     public ReservationEntity createReservationNtt(ReservationFromDTOtoNTT reservationFromDTOtoNTT) {
 
         ReservationEntity mappedNtt = prepareReservationDetails(reservationFromDTOtoNTT);
+
         if (hotelHasRoomsRepository.getRoomNumbersForValidation(mappedNtt.getHotel().getHotelId(), mappedNtt.getRoomType().getRoomTypeId())
                 <= reservationRepository.getReservationValidation(mappedNtt.getHotel().getHotelId(), mappedNtt.getRoomType().getRoomTypeId(), mappedNtt.getCheckIn(), mappedNtt.getCheckOut())) {
             throw new ReservationNotPossibleException("All rooms in the selected category have been booked for this hotel in the selected interval. " +
@@ -114,11 +115,20 @@ public class ReservationService {
         double reservationPriceBeforeDiscount = reservationNumberOfDays * hotelHasRoomsEntity.getPricePerNight();
         double reservationPriceWithDiscount = reservationPriceBeforeDiscount - (reservationPriceBeforeDiscount * customerEntity.getLoyaltyLevel().getDiscountPercent() / 100);
 
-        return getMappedReservationNtt(reservationFromDTOtoNTT, customerEntity, hotelEntity, roomTypeEntity, reservationPriceWithDiscount);
 
+        if (reservationRepository.checkForDuplicates(customerEntity.getCustomerId(), hotelEntity.getHotelId(), roomTypeEntity.getRoomTypeId(), reservationFromDTOtoNTT.getCheckIn(), reservationFromDTOtoNTT.getCheckOut()) != null) {
+            throw new ReservationNotPossibleException("A duplicate reservation was detected. Please check your reservation details" +
+                    reservationNttToDtoMapper.createDTOFromNTT(reservationRepository.checkForDuplicates(customerEntity.getCustomerId(),
+                            hotelEntity.getHotelId(), roomTypeEntity.getRoomTypeId(), reservationFromDTOtoNTT.getCheckIn(),
+                            reservationFromDTOtoNTT.getCheckOut())));
+        } else {
+            return getMappedReservationNtt(reservationFromDTOtoNTT, customerEntity, hotelEntity, roomTypeEntity, reservationPriceWithDiscount);
+        }
     }
 
-    private ReservationEntity getMappedReservationNtt(ReservationFromDTOtoNTT reservationFromDTOtoNTT, CustomerEntity customerEntity, HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity, double reservationPriceWithDiscount) {
+    private ReservationEntity getMappedReservationNtt(ReservationFromDTOtoNTT reservationFromDTOtoNTT,
+                                                      CustomerEntity customerEntity, HotelEntity hotelEntity,
+                                                      RoomTypeEntity roomTypeEntity, double reservationPriceWithDiscount) {
         return ReservationEntity.builder()
                 .customerId(customerRepository.findByCustomerId(reservationFromDTOtoNTT.getCustomerId()))
                 .hotel(hotelEntity)
@@ -168,9 +178,8 @@ public class ReservationService {
                 .collect(toList());
     }
 
-
     @Scheduled(cron = "0 0 1 * * ?")
-    public void CheckForReservationsThatHaveEnded() {
+    public void checkForReservationsThatHaveEnded() {
 
         List<ReservationEntity> reservationEntityList = reservationRepository.findAllByCheckOutBefore(LocalDate.now());
         reservationEntityList.stream()
@@ -185,4 +194,5 @@ public class ReservationService {
         reservationEntity.setStatus(reservationStatusRepository.getOne(4));
         reservationRepository.save(reservationEntity);
     }
+
 }
