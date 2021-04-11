@@ -65,6 +65,7 @@ public class ReservationsController {
         return reservationService.findReservationsByStatus(status);
     }
 
+
     //===========================------------------- Create   -----------------===============================
 
     //create a new reservation
@@ -72,6 +73,15 @@ public class ReservationsController {
     @PostMapping(value = "/make_a_reservation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ReservationRequestDto createAReservation(@RequestBody ReservationFromDTOtoNTT reservationFromDTOtoNTT) {
         return reservationService.createReservationNtt(reservationFromDTOtoNTT);
+    }
+
+    //===========================------------------- Update   -----------------===============================
+
+    //update reservation status to Cancelled (cancel reservation)
+    //http://localhost:8080/front_page/reservationsdb/cancel_reservation
+    @PutMapping(value = "/cancel_reservation/")
+    public void cancelReservation(@RequestParam(name = "reservationId") Integer reservationId) {
+        reservationService.cancelReservation(reservationId);
     }
 
 }

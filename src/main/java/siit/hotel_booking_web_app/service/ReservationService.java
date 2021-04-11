@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 //import siit.hotel_booking_web_app.mapper.reservation.ReservationDtoToNttMapper;
+import siit.hotel_booking_web_app.exceptions.customer.CustomerNotFoundException;
 import siit.hotel_booking_web_app.exceptions.reservation.ReservationNotPossibleException;
 import siit.hotel_booking_web_app.mapper.reservation.ReservationNttToDtoMapper;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationFromDTOtoNTT;
@@ -15,6 +16,7 @@ import siit.hotel_booking_web_app.repository.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 
 import static java.util.stream.Collectors.toList;
@@ -137,4 +139,9 @@ public class ReservationService {
                 });
     }
 
+    public void cancelReservation(Integer reservationId) {
+       ReservationEntity reservationEntity = reservationRepository.findById(reservationId).orElseThrow(() -> new ReservationNotPossibleException("No reservation found by the specified ID " + reservationId));
+       reservationEntity.setStatus(reservationStatusRepository.getOne(4));
+       reservationRepository.save(reservationEntity);
+    }
 }
