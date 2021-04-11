@@ -90,7 +90,7 @@ public class ReservationService {
 
         ReservationEntity mappedNtt = prepareReservationDetails(reservationFromDTOtoNTT);
         if (hotelHasRoomsRepository.getRoomNumbersForValidation(mappedNtt.getHotel().getHotelId(), mappedNtt.getRoomType().getRoomTypeId())
-                <= reservationRepository.getReservationValidation(mappedNtt.getHotel().getHotelId(), mappedNtt.getRoomType().getRoomTypeId(), mappedNtt.getCheckIn(), mappedNtt.getCheckOut())){
+                <= reservationRepository.getReservationValidation(mappedNtt.getHotel().getHotelId(), mappedNtt.getRoomType().getRoomTypeId(), mappedNtt.getCheckIn(), mappedNtt.getCheckOut())) {
             throw new ReservationNotPossibleException("All rooms in the selected category have been booked for this hotel in the selected interval. " +
                     "Please select a different period or another room type.");
         } else {
@@ -108,13 +108,13 @@ public class ReservationService {
 
         int reservationNumberOfDays = (int) ChronoUnit.DAYS.between(reservationFromDTOtoNTT.getCheckIn(), reservationFromDTOtoNTT.getCheckOut());
         double reservationPriceBeforeDiscount = reservationNumberOfDays * hotelHasRoomsEntity.getPricePerNight();
-        double reservationPriceWithDiscount = reservationPriceBeforeDiscount - (reservationPriceBeforeDiscount *
-                customerEntity.getLoyaltyLevel().getDiscountPercent() / 100);
-        ReservationEntity mappedNtt = getMappedReservationNtt(reservationFromDTOtoNTT, customerEntity, hotelEntity, roomTypeEntity, reservationPriceWithDiscount);
-          return mappedNtt;
+        double reservationPriceWithDiscount = reservationPriceBeforeDiscount - (reservationPriceBeforeDiscount * customerEntity.getLoyaltyLevel().getDiscountPercent() / 100);
+        return getMappedReservationNtt(reservationFromDTOtoNTT, customerEntity, hotelEntity, roomTypeEntity, reservationPriceWithDiscount);
+
     }
+
     private ReservationEntity getMappedReservationNtt(ReservationFromDTOtoNTT reservationFromDTOtoNTT, CustomerEntity customerEntity, HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity, double reservationPriceWithDiscount) {
-        ReservationEntity mappedNtt = ReservationEntity.builder()
+       return ReservationEntity.builder()
                 .customerId(customerRepository.findByCustomerId(reservationFromDTOtoNTT.getCustomerId()))
                 .hotel(hotelEntity)
                 .roomType(roomTypeEntity)
@@ -124,14 +124,13 @@ public class ReservationService {
                 .discountPercent(customerEntity.getLoyaltyLevel().getDiscountPercent())
                 .status(reservationStatusRepository.getOne(1))
                 .build();
-        return mappedNtt;
     }
 
-    @Scheduled(cron = "0 1 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void CheckForReservationsThatHaveEnded() {
-//        log.info("The time is now {}", dateFormat.format(new Date()));
+
         List<ReservationEntity> reservationEntityList = reservationRepository.findAllByCheckOutBefore(LocalDate.now());
-          reservationEntityList.stream()
+        reservationEntityList.stream()
                 .forEach(reservationEntity -> {
                     reservationEntity.setStatus(reservationStatusRepository.getOne(5));
                     reservationRepository.save(reservationEntity);

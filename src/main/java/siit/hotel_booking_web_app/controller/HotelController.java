@@ -37,28 +37,28 @@ public class HotelController {
 
     //list hotel details based on ID
     //http://localhost:8080/front_page/hotelsdb/hotelWithAllDetails=?hotelId=1
-    @RequestMapping(value = "/hotelWithAllDetails={hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/hotelWithAllDetails=", produces = MediaType.APPLICATION_JSON_VALUE)
     public HotelRequestDto getHotelWithAllDetailsById(@RequestParam(name = "hotelId") Integer hotelId) {
         return hotelService.hotelWithAllDetailsById(hotelId);
     }
 
     //list hotels based on a given country
     //http://localhost:8080/front_page/hotelsdb/hotel_country=?country=china
-    @RequestMapping(value = "/hotel_country={country}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/hotel_country=", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<HotelRequestDto> getHotelsByCountry(@RequestParam(name = "country") String country) {
         return hotelService.returnAllByCountry(country);
     }
 
     //list hotels based on a given city
     //http://localhost:8080/front_page/hotelsdb/hotel_country_city=?city=Gaobu
-    @RequestMapping(value = "/hotel_country_city={city}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/hotel_country_city=", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<HotelRequestDto> getHotelsByCity(@RequestParam(name = "city") String city) {
         return hotelService.returnAllByCity(city);
     }
 
     //list hotels based on rating
     //http://localhost:8080/front_page/hotelsdb/hotel_rating=?rating=5
-    @RequestMapping(value = "/hotel_rating={rating}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/hotel_rating=", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<HotelRequestDto> getHotelsByRating(@RequestParam(name = "rating") Integer rating) {
         return hotelService.returnAllByRating(rating);
     }
@@ -128,10 +128,14 @@ public class HotelController {
 
     //delete a hotel by ID
     //http://localhost:8080/front_page/hotelsdb/delete?hotelId=33
-    @DeleteMapping(value = "/delete{hotelId}")
+    @DeleteMapping(value = "/delete")
     public void deleteHotelById(Integer hotelId) {
         hotelService.deleteHotelById(hotelId);
     }
+
+
+
+
 
 //    //update a hotel data by ID
 //    //http://localhost:8080/front_page/hotelsdb/update33

@@ -50,14 +50,14 @@ public class CustomerController {
     //delete a customer by ID
     //http://localhost:8080/front_page/customersdb/delete?customerId=
     @ResponseStatus(HttpStatus.IM_USED)
-    @DeleteMapping(value = "/delete{customerId}")
+    @DeleteMapping(value = "/delete")
     public void deleteCustomerNtt(@RequestParam(name = "customerId") Integer customerId) {
         customerService.deleteCustomerNtt(customerId);
     }
 
     //update a customer info by ID
-    //http://localhost:8080/front_page/customersdb/update100
-    @PutMapping(value = "/update{customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    //http://localhost:8080/front_page/customersdb/update=100
+    @PutMapping(value = "/update={customerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public CustomerRequestDto updateCustomerDetails(@PathVariable(name = "customerId") Integer customerId,
                                                     @RequestBody @Valid CustomerUpdateDto customerUpdateDto) {
         customerUpdateDto.setCustomerId(customerId);

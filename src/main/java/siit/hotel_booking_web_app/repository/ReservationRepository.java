@@ -22,7 +22,8 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     @Query(value = "SELECT COUNT(*) AS total_bookings\n" +
             "FROM reservations rs\n" +
-            "WHERE rs.hotel= :hotel\n" +
+            "WHERE rs.status != 4" +
+            "AND rs.hotel= :hotel\n" +
             "AND rs.roomType= :roomType\n" +
             "AND rs.checkIn >=  :checkIn\n" +
             "AND rs.checkOut <= :checkOut", nativeQuery = true)

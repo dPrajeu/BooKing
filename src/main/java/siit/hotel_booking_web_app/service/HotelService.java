@@ -96,7 +96,7 @@ public class HotelService {
     @Transactional
     public HotelRequestDto updateHotelNtt(HotelUpdateDto hotelUpdateDto) {
         Optional<HotelEntity> byId = hotelRepository.findById(hotelUpdateDto.getHotelId());
-        HotelEntity hotelEntity = byId.orElseThrow(() -> new HotelNotFoundException("No customer was found for the given ID: " + hotelUpdateDto.getHotelId()));
+        HotelEntity hotelEntity = byId.orElseThrow(() -> new HotelNotFoundException("No hotel was found for the given ID: " + hotelUpdateDto.getHotelId()));
 
         hotelEntity.setHotelName(hotelUpdateDto.getHotelName());
         hotelEntity.setPhoneNumber(hotelUpdateDto.getPhoneNumber());

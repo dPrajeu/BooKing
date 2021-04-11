@@ -14,12 +14,24 @@ import java.util.List;
 
 @Repository
 public interface HotelHasRoomsRepository extends JpaRepository<HotelHasRoomsEntity, HotelHasRoomCompositPK> {
+
    List<HotelHasRoomsEntity> findAllByHotelId(HotelEntity hotelEntity);
-   HotelHasRoomsEntity findByHotelIdAndRoomType (HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity);
+
+   @Query(value = "SELECT *" +
+           "From hotelshasrooms\n" +
+           "Where hotelId = :hotelId\n" +
+           "And roomType = :roomType", nativeQuery = true)
+   HotelHasRoomsEntity findByHotelIdAndRoomType (HotelEntity hotelId, RoomTypeEntity roomType);
+
    @Query(value = "SELECT roomQuantity\n" +
            "From hotelshasrooms\n" +
            "Where hotelId = :hotelId\n" +
            "And roomType = :roomType", nativeQuery = true)
    Integer getRoomNumbersForValidation (@Param("hotelId") Integer hotelId, @Param("roomType") Integer roomType);
+
+   @Query(value = "SELECT *" +
+           "From hotelshasrooms\n" +
+           "Where roomType = :roomType", nativeQuery = true)
+   List <HotelHasRoomsEntity> findByRoomType(Integer roomType);
 }
 

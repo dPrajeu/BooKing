@@ -28,7 +28,7 @@ public class ReservationsController {
 
     //get reservation by ReservationID
     //http://localhost:8080/front_page/reservationsdb/reservationId?reservationId=1
-    @RequestMapping(value = "/reservationId{reservationId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/reservationId", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationById(@RequestParam(name = "reservationId") Integer reservationId) {
         return reservationService.findReservationById(reservationId);
     }
@@ -36,14 +36,14 @@ public class ReservationsController {
 
     //get all reservations for CustomerID
     //http://localhost:8080/front_page/reservationsdb/reservation_for_customer?customerId=4
-    @RequestMapping(value = "/reservation_for_customer{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/reservation_for_customer", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationsByCustomerId(@RequestParam(name = "customerId") Integer customerId) {
         return reservationService.findReservationByCustomerId(customerId);
     }
 
     //get reservation by Hotel
     //http://localhost:8080/front_page/reservationsdb/reservation_for_hotel?hotelId=25
-    @RequestMapping(value = "/reservation_for_hotel{hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/reservation_for_hotel", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationsByHotel(@RequestParam(name = "hotelId") Integer hotelId) {
 
         return reservationService.findReservationByHotel(hotelId);
@@ -52,7 +52,7 @@ public class ReservationsController {
 
     //get reservation by Hotel and customerId
     //http://localhost:8080/front_page/reservationsdb/return_reservation_?hotel=25&customerId=35
-    @RequestMapping(value = "/return_reservation_{hotel}{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/return_reservation_", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationsFromHotelForCustomerId(@RequestParam(name = "hotel") Integer hotel, @RequestParam(name = "customerId") Integer customerId) {
 
         return reservationService.findAllReservationsFromHotelForCustomer(hotel, customerId);
@@ -60,7 +60,7 @@ public class ReservationsController {
 
     //get reservation by Reservation status
     //http://localhost:8080/front_page/reservationsdb/reservation_by_?status=2
-    @RequestMapping(value = "/reservation_by_{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/reservation_by_", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationRequestDto> getReservationsByStatus(@RequestParam(name = "status") Integer status) {
         return reservationService.findReservationsByStatus(status);
     }
