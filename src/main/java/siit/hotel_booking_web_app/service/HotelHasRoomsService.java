@@ -29,7 +29,6 @@ public class HotelHasRoomsService {
     private final HotelHasRoomsRepository hotelHasRoomsRepository;
     private final HotelHasRoomsNttToDtoMapper hotelHasRoomsNttToDtoMapper;
     private final HotelRepository hotelRepository;
-    private final RoomTypeRepository roomTypeRepository;
 
     public Map<String, List<HotelHasRoomsRequestDto>> returnAll() {
         return hotelHasRoomsRepository.findAll()
