@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import siit.hotel_booking_web_app.hotel.serviceTests.HotelServiceTests;
 import siit.hotel_booking_web_app.mapper.reservation.ReservationNttToDtoMapper;
 import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
 import siit.hotel_booking_web_app.model.entities.*;
@@ -17,10 +16,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LOCAL_DATE;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -44,22 +42,16 @@ public class ReservationsServiceTests {
     @Mock
     private ReservationStatusRepository reservationStatusRepository;
 
-    @Mock
-    private RoomTypeRepository roomTypeRepository;
-
-    @Mock
-    private HotelHasRoomsRepository hotelHasRoomsRepository;
-
     private List<HotelHasRoomsEntity> HOTEL_ROOMS_LIST = new ArrayList<>();
     private List<ReservationEntity> RESERVATIONS_LIST = new ArrayList<>();
 
-    private CustomerLoyaltyEntity CUSTOMER_LOYALTY = CustomerLoyaltyEntity.builder()
+    private final CustomerLoyaltyEntity CUSTOMER_LOYALTY = CustomerLoyaltyEntity.builder()
             .loyaltyId(1)
             .loyaltyLevelName("Unranked")
             .discountPercent(0)
             .build();
 
-    private CustomerEntity CUSTOMER_ENTITY = CustomerEntity.builder()
+    private final CustomerEntity CUSTOMER_ENTITY = CustomerEntity.builder()
             .customerId(1)
             .firstName("Florin")
             .lastName("Piersic")
@@ -72,7 +64,7 @@ public class ReservationsServiceTests {
             .loyaltyLevel(CUSTOMER_LOYALTY)
             .build();
 
-    private HotelEntity HOTEL_ENTITY = HotelEntity.builder()
+    private final HotelEntity HOTEL_ENTITY = HotelEntity.builder()
             .hotelId(1)
             .hotelName("La Mishu")
             .address("Vulturului")
@@ -94,13 +86,13 @@ public class ReservationsServiceTests {
             .statusName("Requested")
             .build();
 
-    private ReservationEntity RESERVATION_NTT = ReservationEntity.builder()
+    private final ReservationEntity RESERVATION_NTT = ReservationEntity.builder()
             .reservationId(1)
             .customerId(CUSTOMER_ENTITY)
             .hotel(HOTEL_ENTITY)
             .roomType(ROOM_TYPE)
-            .checkIn(LocalDate.of(2019,10,10))
-            .checkOut(LocalDate.of(2019,10,17))
+            .checkIn(LocalDate.of(2019, 10, 10))
+            .checkOut(LocalDate.of(2019, 10, 17))
             .priceTotal(200.50)
             .discountPercent(2)
             .status(STATUS)
@@ -114,8 +106,8 @@ public class ReservationsServiceTests {
             .roomTypeId(2)
             .roomTypeName("Double")
             .pricePerNight(28.642857142857142)
-            .checkIn(LocalDate.of(2019,10,10))
-            .checkOut(LocalDate.of(2019,10,17))
+            .checkIn(LocalDate.of(2019, 10, 10))
+            .checkOut(LocalDate.of(2019, 10, 17))
             .priceTotal(200.50)
             .discountPercent(2)
             .status("Requested")
@@ -131,7 +123,6 @@ public class ReservationsServiceTests {
         assertThat(allReservations).isNotNull();
         assertThat(allReservations.isEmpty()).isTrue();
     }
-
 
     @Test
     public void getAllReservations_givenExistingReservations_thenReturnReservationsList() {
@@ -159,10 +150,90 @@ public class ReservationsServiceTests {
         assertThat(allReservations.get(0).getPricePerNight()).isEqualTo(RESERVATION_NTT.getPriceTotal() / (int) ChronoUnit.DAYS.between(RESERVATION_NTT.getCheckIn(), RESERVATION_NTT.getCheckOut()));
     }
 
+    @Test
+    public void getReservation_givenExistingReservationId_thenReturnReservationDetails() {
+
+        when(reservationRepository.findById(1)).thenReturn(Optional.ofNullable(RESERVATION_NTT));
+        assert RESERVATION_NTT != null;
+        when(reservationNttToDtoMapper.mapNttToDto(RESERVATION_NTT)).thenReturn(RESERVATION_REQUEST_DTO);
+
+        List<ReservationRequestDto> reservationRequestDtoList = reservationService.findReservationById(1);
+
+        assertThat(reservationRequestDtoList).isNotNull();
+        assertThat(reservationRequestDtoList.get(0)).isEqualTo(RESERVATION_REQUEST_DTO);
+    }
+
+    @Test
+    public void getReservation_givenCustomerId_thenReturnReservationDetails() {
+
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+
+        when(customerRepository.findById(1)).thenReturn(Optional.ofNullable(CUSTOMER_ENTITY));
+        when(reservationRepository.findByCustomerId(CUSTOMER_ENTITY)).thenReturn(RESERVATIONS_LIST);
+        when(reservationNttToDtoMapper.mapNttToDto(RESERVATIONS_LIST.get(0))).thenReturn(RESERVATION_REQUEST_DTO);
+
+        List<ReservationRequestDto> reservationRequestDtoList = reservationService.findReservationByCustomerId(1);
+
+        assertThat(reservationRequestDtoList).isNotNull();
+        assertThat(reservationRequestDtoList.get(0)).isEqualTo(RESERVATION_REQUEST_DTO);
+    }
+
+    @Test
+    public void getReservation_givenHotelId_thenReturnReservationDetails() {
+
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+
+        when(hotelRepository.findById(1)).thenReturn(Optional.ofNullable(HOTEL_ENTITY));
+        when(reservationRepository.findByHotel(HOTEL_ENTITY)).thenReturn(RESERVATIONS_LIST);
+        when(reservationNttToDtoMapper.mapNttToDto(RESERVATIONS_LIST.get(0))).thenReturn(RESERVATION_REQUEST_DTO);
+
+        List<ReservationRequestDto> reservationRequestDtoList = reservationService.findReservationByHotel(1);
+
+        assertThat(reservationRequestDtoList).isNotNull();
+        assertThat(reservationRequestDtoList.get(0)).isEqualTo(RESERVATION_REQUEST_DTO);
+    }
 
 
+    @Test
+    public void getReservation_givenHotelIdAndCustomerID_thenReturnReservationList() {
 
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
 
+        when(customerRepository.findById(1)).thenReturn(Optional.ofNullable(CUSTOMER_ENTITY));
+        when(hotelRepository.findById(1)).thenReturn(Optional.ofNullable(HOTEL_ENTITY));
+        when(reservationRepository.findByHotel(HOTEL_ENTITY)).thenReturn(RESERVATIONS_LIST);
+        when(reservationNttToDtoMapper.mapNttToDto(RESERVATIONS_LIST.get(0))).thenReturn(RESERVATION_REQUEST_DTO);
+
+        List<ReservationRequestDto> reservationRequestDtoList = reservationService.findAllReservationsFromHotelForCustomer(1, 1);
+
+        assertThat(reservationRequestDtoList).isNotNull();
+        assertThat(reservationRequestDtoList.size()).isEqualTo(3);
+        assertThat(reservationRequestDtoList.get(0)).isEqualTo(RESERVATION_REQUEST_DTO);
+    }
+
+    @Test
+    public void getReservation_givenReservationStatus_thenReturnReservationList() {
+
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+        RESERVATIONS_LIST.add(RESERVATION_NTT);
+
+        when(reservationStatusRepository.findById(1)).thenReturn(Optional.ofNullable(STATUS));
+        when(reservationRepository.findAllByStatus(STATUS)).thenReturn(RESERVATIONS_LIST);
+        when(reservationNttToDtoMapper.mapNttToDto(RESERVATIONS_LIST.get(0))).thenReturn(RESERVATION_REQUEST_DTO);
+
+        List<ReservationRequestDto> reservationRequestDtoList = reservationService.findReservationsByStatus(1);
+
+        assertThat(reservationRequestDtoList).isNotNull();
+        assertThat(reservationRequestDtoList.size()).isEqualTo(3);
+        assertThat(reservationRequestDtoList.get(0)).isEqualTo(RESERVATION_REQUEST_DTO);
+    }
 
 
 }
