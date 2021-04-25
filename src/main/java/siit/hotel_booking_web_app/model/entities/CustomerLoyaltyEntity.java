@@ -1,6 +1,7 @@
 package siit.hotel_booking_web_app.model.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table (name = "customerloyalty")
 public class CustomerLoyaltyEntity {
 

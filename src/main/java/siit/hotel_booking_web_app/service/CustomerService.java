@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import siit.hotel_booking_web_app.exceptions.customer.CustomerNotFoundException;
+import siit.hotel_booking_web_app.exceptions.loyalty.LoyaltyNotFoundException;
 import siit.hotel_booking_web_app.mapper.customer.CustomerDtoToNttMapper;
 import siit.hotel_booking_web_app.mapper.customer.CustomerNttToDtoMapper;
 import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
@@ -26,7 +27,6 @@ import static java.util.stream.Collectors.toList;
 @Configurable
 public class CustomerService {
 
-
     private final CustomerRepository customerRepository;
     private final CustomerNttToDtoMapper customerNttToDtoMapper;
     private final CustomerDtoToNttMapper customerDtoToNttMapper;
@@ -35,22 +35,21 @@ public class CustomerService {
     public List<CustomerRequestDto> getAllCustomers() {
         return customerRepository.findAll()
                 .stream()
-                .map(customerEntity -> customerNttToDtoMapper.mapNttToDto(customerEntity))
+                .map(customerNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
     public CustomerRequestDto getCustomerById(Integer id) {
-        return customerNttToDtoMapper.mapNttToDto(customerRepository.findById(id).orElseThrow());
+        return customerNttToDtoMapper.mapNttToDto(customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Customer with ID:" + id + " does not exist")));
     }
-
 
     public List<CustomerRequestDto> getByLoyaltyLevel(Integer loyaltyLevel) {
 
-        CustomerLoyaltyEntity customerLoyaltyEntity = customerLoyaltyRepository.findById(loyaltyLevel).orElseThrow();
+        CustomerLoyaltyEntity customerLoyaltyEntity = customerLoyaltyRepository.findById(loyaltyLevel).orElseThrow(() -> new LoyaltyNotFoundException("Loyalty levels are between 1-5"));
 
         return customerRepository.findAllByLoyaltyLevel(customerLoyaltyEntity)
                 .stream()
-                .map(customerEntity -> customerNttToDtoMapper.mapNttToDto(customerEntity))
+                .map(customerNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 

@@ -49,8 +49,8 @@ public class HotelController {
         return hotelService.returnAllByCountry(country);
     }
 
-    //list hotels based on a given city
-    //http://localhost:8080/front_page/hotelsdb/hotel_country_city=?city=Gaobu
+    /*list hotels based on a given city
+    http://localhost:8080/front_page/hotelsdb/hotel_country_city=?city=Gaobu*/
     @RequestMapping(value = "/hotel_country_city=", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<HotelRequestDto> getHotelsByCity(@RequestParam(name = "city") String city) {
         return hotelService.returnAllByCity(city);
@@ -132,18 +132,5 @@ public class HotelController {
     public void deleteHotelById(Integer hotelId) {
         hotelService.deleteHotelById(hotelId);
     }
-
-
-
-
-
-//    //update a hotel data by ID
-//    //http://localhost:8080/front_page/hotelsdb/update33
-//    @PutMapping(value = "/update{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public HotelRequestDto updateHotelRooms(@PathVariable(name = "hotelId") Integer hotelId,
-//                                              @RequestBody @Valid @NotNull HotelUpdateDto hotelUpdateDto) {
-//        hotelUpdateDto.setHotelId(hotelId);
-//        return hotelService.updateHotelNtt(hotelUpdateDto);
-//    }
 
 }
