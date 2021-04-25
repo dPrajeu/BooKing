@@ -5,17 +5,11 @@ import org.springframework.stereotype.Repository;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
 import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
 
-
 import java.util.List;
-import java.util.Optional;
-
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer> {
 
     List<CustomerEntity> findAllByLoyaltyLevel(CustomerLoyaltyEntity customerLoyaltyEntity);
     CustomerEntity findByCustomerId(Integer customerId);
-
-//    Optional<CustomerEntity> findByPhoneNumber(String phoneNumber);
-
 }

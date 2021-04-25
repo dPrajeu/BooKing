@@ -1,4 +1,4 @@
-package siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto;
+package siit.hotel_booking_web_app.model.dto.hotel_has_rooms_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class HotelHasRoomsUpdateDTO {
+public class HotelHasRoomsRequestWithoutHotelDetailsDTO {
+
+    private Integer roomTypeId;
+
+    private String roomTypeName;
 
     private Integer roomQuantity;
 

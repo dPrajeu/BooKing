@@ -1,4 +1,4 @@
-package siit.hotel_booking_web_app.model.dto.hotelDto;
+package siit.hotel_booking_web_app.model.dto.hotel_dto;
 
 
 import lombok.AllArgsConstructor;

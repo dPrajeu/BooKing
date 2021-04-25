@@ -1,4 +1,4 @@
-package siit.hotel_booking_web_app.model.dto.customerDto;
+package siit.hotel_booking_web_app.model.dto.customer_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,7 @@ import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomerRequestDto {
-
-    private Integer customerId;
+public class CustomerCreateNewDto {
 
     private String firstName;
 
@@ -33,4 +31,6 @@ public class CustomerRequestDto {
     private String address;
 
     private CustomerLoyaltyEntity loyaltyLevel;
+
 }
+

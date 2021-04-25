@@ -1,8 +1,8 @@
 package siit.hotel_booking_web_app.mapper.customer;
 
 import org.springframework.stereotype.Component;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerRequestDto;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
 
 @Component

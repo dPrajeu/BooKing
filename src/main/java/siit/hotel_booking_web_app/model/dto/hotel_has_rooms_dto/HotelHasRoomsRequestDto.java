@@ -1,13 +1,9 @@
-package siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto;
+package siit.hotel_booking_web_app.model.dto.hotel_has_rooms_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import siit.hotel_booking_web_app.model.entities.HotelEntity;
-import siit.hotel_booking_web_app.model.entities.HotelHasRoomCompositPK;
-import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +22,5 @@ public class HotelHasRoomsRequestDto {
     private Integer roomQuantity;
 
     private Double pricePerNight;
-
 
 }

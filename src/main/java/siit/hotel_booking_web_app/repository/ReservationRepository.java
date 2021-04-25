@@ -10,7 +10,6 @@ import siit.hotel_booking_web_app.model.entities.ReservationEntity;
 import siit.hotel_booking_web_app.model.entities.ReservationStatusEntity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository

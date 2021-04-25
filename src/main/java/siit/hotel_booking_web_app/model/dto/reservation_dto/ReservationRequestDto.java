@@ -1,13 +1,9 @@
-package siit.hotel_booking_web_app.model.dto.reservationDto;
+package siit.hotel_booking_web_app.model.dto.reservation_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import siit.hotel_booking_web_app.model.entities.CustomerEntity;
-import siit.hotel_booking_web_app.model.entities.HotelEntity;
-import siit.hotel_booking_web_app.model.entities.ReservationStatusEntity;
-import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
 
 import java.time.LocalDate;
 

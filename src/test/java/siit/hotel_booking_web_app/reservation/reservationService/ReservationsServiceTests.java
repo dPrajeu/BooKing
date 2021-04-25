@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import siit.hotel_booking_web_app.mapper.reservation.ReservationNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationRequestDto;
 import siit.hotel_booking_web_app.model.entities.*;
 import siit.hotel_booking_web_app.repository.*;
 import siit.hotel_booking_web_app.service.ReservationService;

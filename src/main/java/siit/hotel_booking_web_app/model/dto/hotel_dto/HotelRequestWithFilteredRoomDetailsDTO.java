@@ -1,10 +1,10 @@
-package siit.hotel_booking_web_app.model.dto.hotelDto;
+package siit.hotel_booking_web_app.model.dto.hotel_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsRequestWithoutHotelDetailsDTO;
+import siit.hotel_booking_web_app.model.dto.hotel_has_rooms_dto.HotelHasRoomsRequestWithoutHotelDetailsDTO;
 
 import java.util.List;
 

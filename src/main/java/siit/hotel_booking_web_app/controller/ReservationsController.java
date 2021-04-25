@@ -5,13 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationFromDTOtoNTT;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationFromDTOtoNTT;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationRequestDto;
 import siit.hotel_booking_web_app.model.entities.ReservationEntity;
 import siit.hotel_booking_web_app.service.ReservationService;
 
-import java.awt.*;
 import java.util.List;
 
 @RequiredArgsConstructor

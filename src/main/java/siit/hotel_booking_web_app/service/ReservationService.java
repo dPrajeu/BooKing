@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import siit.hotel_booking_web_app.exceptions.reservation.ReservationNotPossibleException;
 import siit.hotel_booking_web_app.mapper.reservation.ReservationNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationFromDTOtoNTT;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationFromDTOtoNTT;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationRequestDto;
 import siit.hotel_booking_web_app.model.entities.*;
 import siit.hotel_booking_web_app.repository.*;
 
@@ -51,7 +51,7 @@ public class ReservationService {
 
     public List<ReservationRequestDto> findReservationByCustomerId(Integer customerId) {
 
-        CustomerEntity customerEntity = customerRepository.findById(customerId).orElseThrow();
+        var customerEntity = customerRepository.findById(customerId).orElseThrow();
 
         return reservationRepository.findByCustomerId(customerEntity)
                 .stream()
@@ -60,7 +60,7 @@ public class ReservationService {
     }
 
     public List<ReservationRequestDto> findReservationByHotel(Integer hotel) {
-        HotelEntity hotelEntity = hotelRepository.findById(hotel).orElseThrow();
+        var hotelEntity = hotelRepository.findById(hotel).orElseThrow();
 
         return reservationRepository.findByHotel(hotelEntity)
                 .stream()
@@ -70,8 +70,8 @@ public class ReservationService {
 
     public List<ReservationRequestDto> findAllReservationsFromHotelForCustomer(Integer hotel, Integer customerId) {
 
-        HotelEntity hotelEntity = hotelRepository.findById(hotel).orElseThrow();
-        CustomerEntity customerEntity = customerRepository.findById(customerId).orElseThrow();
+        var hotelEntity = hotelRepository.findById(hotel).orElseThrow();
+        var customerEntity = customerRepository.findById(customerId).orElseThrow();
 
         return reservationRepository.findByHotel(hotelEntity)
                 .stream()
@@ -81,7 +81,7 @@ public class ReservationService {
     }
 
     public List<ReservationRequestDto> findReservationsByStatus(Integer status) {
-        ReservationStatusEntity reservationStatusEntity = reservationStatusRepository.findById(status).orElseThrow();
+        var reservationStatusEntity = reservationStatusRepository.findById(status).orElseThrow();
 
         return reservationRepository.findAllByStatus(reservationStatusEntity)
                 .stream()
@@ -108,7 +108,7 @@ public class ReservationService {
         CustomerEntity customerEntity = customerRepository.findByCustomerId(reservationFromDTOtoNTT.getCustomerId());
         HotelEntity hotelEntity = hotelRepository.findByHotelId(reservationFromDTOtoNTT.getHotel());
         RoomTypeEntity roomTypeEntity = roomTypeRepository.findByRoomTypeId(reservationFromDTOtoNTT.getRoomType());
-        HotelHasRoomsEntity hotelHasRoomsEntity = hotelHasRoomsRepository.findById(new HotelHasRoomCompositPK(hotelEntity.getHotelId(), roomTypeEntity.getRoomTypeId())).orElseThrow();
+        var hotelHasRoomsEntity = hotelHasRoomsRepository.findById(new HotelHasRoomCompositPK(hotelEntity.getHotelId(), roomTypeEntity.getRoomTypeId())).orElseThrow();
 
         int reservationNumberOfDays = (int) ChronoUnit.DAYS.between(reservationFromDTOtoNTT.getCheckIn(), reservationFromDTOtoNTT.getCheckOut());
         double reservationPriceBeforeDiscount = reservationNumberOfDays * hotelHasRoomsEntity.getPricePerNight();
@@ -148,7 +148,7 @@ public class ReservationService {
             throw new ReservationNotPossibleException("The provided file is empty or corrupted. Please check your file and try again!");
         }
         byte[] bytes = file.getBytes();
-        String fileContent = new String(bytes);
+        var fileContent = new String(bytes);
         String[] rows = fileContent.split("\r\n");
 
         List<ReservationFromDTOtoNTT> toCreate = new ArrayList<>();
@@ -189,7 +189,7 @@ public class ReservationService {
     }
 
     public void cancelReservation(Integer reservationId) {
-        ReservationEntity reservationEntity = reservationRepository.findById(reservationId).orElseThrow(() -> new ReservationNotPossibleException("No reservation found by the specified ID " + reservationId));
+        var reservationEntity = reservationRepository.findById(reservationId).orElseThrow(() -> new ReservationNotPossibleException("No reservation found by the specified ID " + reservationId));
         reservationEntity.setStatus(reservationStatusRepository.getOne(4));
         reservationRepository.save(reservationEntity);
     }

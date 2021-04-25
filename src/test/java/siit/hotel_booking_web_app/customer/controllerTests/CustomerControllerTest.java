@@ -1,16 +1,14 @@
 package siit.hotel_booking_web_app.customer.controllerTests;
 
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.bind.annotation.PathVariable;
 import siit.hotel_booking_web_app.controller.CustomerController;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerRequestDto;
 import siit.hotel_booking_web_app.service.CustomerService;
 
 import java.util.ArrayList;

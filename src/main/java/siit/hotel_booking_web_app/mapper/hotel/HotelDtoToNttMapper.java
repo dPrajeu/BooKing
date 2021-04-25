@@ -1,7 +1,7 @@
 package siit.hotel_booking_web_app.mapper.hotel;
 
 import org.springframework.stereotype.Component;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelCreateDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 
 @Component

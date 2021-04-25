@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import siit.hotel_booking_web_app.mapper.hotelHasRooms.HotelHasRoomsNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsRequestDto;
-import siit.hotel_booking_web_app.model.dto.hotelHasRoomsDto.HotelHasRoomsUpdateDTO;
+import siit.hotel_booking_web_app.mapper.hotel_has_rooms.HotelHasRoomsNttToDtoMapper;
+import siit.hotel_booking_web_app.model.dto.hotel_has_rooms_dto.HotelHasRoomsRequestDto;
+import siit.hotel_booking_web_app.model.dto.hotel_has_rooms_dto.HotelHasRoomsUpdateDTO;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
 import siit.hotel_booking_web_app.service.HotelHasRoomsService;
 

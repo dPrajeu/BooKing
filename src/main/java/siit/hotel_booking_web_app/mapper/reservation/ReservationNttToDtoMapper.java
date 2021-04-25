@@ -1,21 +1,11 @@
 package siit.hotel_booking_web_app.mapper.reservation;
 
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.reservationDto.ReservationRequestDto;
-import siit.hotel_booking_web_app.model.entities.HotelEntity;
-import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.reservation_dto.ReservationRequestDto;
 import siit.hotel_booking_web_app.model.entities.ReservationEntity;
-import siit.hotel_booking_web_app.repository.HotelHasRoomsRepository;
-import siit.hotel_booking_web_app.repository.HotelRepository;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.temporal.ChronoUnit;
-import java.util.stream.Collectors;
 
 
 @Component

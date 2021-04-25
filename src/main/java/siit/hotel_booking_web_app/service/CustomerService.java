@@ -8,11 +8,10 @@ import siit.hotel_booking_web_app.exceptions.customer.CustomerNotFoundException;
 import siit.hotel_booking_web_app.exceptions.loyalty.LoyaltyNotFoundException;
 import siit.hotel_booking_web_app.mapper.customer.CustomerDtoToNttMapper;
 import siit.hotel_booking_web_app.mapper.customer.CustomerNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerUpdateDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerRequestDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerUpdateDto;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
-import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
 import siit.hotel_booking_web_app.repository.CustomerLoyaltyRepository;
 import siit.hotel_booking_web_app.repository.CustomerRepository;
 
@@ -45,7 +44,7 @@ public class CustomerService {
 
     public List<CustomerRequestDto> getByLoyaltyLevel(Integer loyaltyLevel) {
 
-        CustomerLoyaltyEntity customerLoyaltyEntity = customerLoyaltyRepository.findById(loyaltyLevel).orElseThrow(() -> new LoyaltyNotFoundException("Loyalty levels are between 1-5"));
+        var customerLoyaltyEntity = customerLoyaltyRepository.findById(loyaltyLevel).orElseThrow(() -> new LoyaltyNotFoundException("Loyalty levels are between 1-5"));
 
         return customerRepository.findAllByLoyaltyLevel(customerLoyaltyEntity)
                 .stream()
@@ -69,7 +68,7 @@ public class CustomerService {
 
 
         Optional<CustomerEntity> byId = customerRepository.findById(customerUpdateDto.getCustomerId());
-        CustomerEntity customerEntity = byId.orElseThrow(() -> new CustomerNotFoundException("No customer was found for the given ID: " + customerUpdateDto.getCustomerId()));
+        var customerEntity = byId.orElseThrow(() -> new CustomerNotFoundException("No customer was found for the given ID: " + customerUpdateDto.getCustomerId()));
 
         customerEntity.setFirstName(customerUpdateDto.getFirstName());
         customerEntity.setLastName(customerUpdateDto.getLastName());

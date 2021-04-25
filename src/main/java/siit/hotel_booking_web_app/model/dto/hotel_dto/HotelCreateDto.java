@@ -1,4 +1,4 @@
-package siit.hotel_booking_web_app.model.dto.hotelDto;
+package siit.hotel_booking_web_app.model.dto.hotel_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,24 +8,27 @@ import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
 
 import java.util.List;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class HotelRequestDto {
+public class HotelCreateDto {
 
-    private Integer hotelId;
     private String hotelName;
-    private String hotelEmail;
+
     private String phoneNumber;
+
+    private String hotelEmail;
+
     private String country;
+
     private String city;
+
     private String address;
+
     private Integer rating;
+
     private List<HotelHasRoomsEntity> hotelHasRoomsEntitiesList;
 
+
 }
-
-
-

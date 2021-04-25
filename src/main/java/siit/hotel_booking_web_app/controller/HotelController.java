@@ -3,10 +3,10 @@ package siit.hotel_booking_web_app.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithFilteredRoomDetailsDTO;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelCreateDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelRequestDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelRequestWithFilteredRoomDetailsDTO;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelUpdateDto;
 import siit.hotel_booking_web_app.service.HotelService;
 
 import javax.validation.Valid;

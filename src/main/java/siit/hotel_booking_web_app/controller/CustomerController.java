@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerUpdateDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerRequestDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerUpdateDto;
 import siit.hotel_booking_web_app.service.CustomerService;
 
 import javax.validation.Valid;

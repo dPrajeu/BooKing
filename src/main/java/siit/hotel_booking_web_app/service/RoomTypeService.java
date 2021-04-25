@@ -7,7 +7,6 @@ import siit.hotel_booking_web_app.model.entities.RoomTypeEntity;
 import siit.hotel_booking_web_app.repository.RoomTypeRepository;
 
 import java.util.List;
-import java.util.stream.Collector;
 
 @Service
 @Configurable

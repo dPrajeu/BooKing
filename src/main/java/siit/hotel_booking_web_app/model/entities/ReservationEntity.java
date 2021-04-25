@@ -1,7 +1,5 @@
 package siit.hotel_booking_web_app.model.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

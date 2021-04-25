@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import siit.hotel_booking_web_app.exceptions.hotel.HotelNotFoundException;
 import siit.hotel_booking_web_app.mapper.hotel.HotelDtoToNttMapper;
 import siit.hotel_booking_web_app.mapper.hotel.HotelNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelCreateDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestDto;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelRequestWithFilteredRoomDetailsDTO;
-import siit.hotel_booking_web_app.model.dto.hotelDto.HotelUpdateDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelCreateDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelRequestDto;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelRequestWithFilteredRoomDetailsDTO;
+import siit.hotel_booking_web_app.model.dto.hotel_dto.HotelUpdateDto;
 import siit.hotel_booking_web_app.model.entities.HotelEntity;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomCompositPK;
 import siit.hotel_booking_web_app.model.entities.HotelHasRoomsEntity;
@@ -95,7 +95,7 @@ public class HotelService {
     @Transactional
     public HotelRequestDto updateHotelNtt(HotelUpdateDto hotelUpdateDto) {
         Optional<HotelEntity> byId = hotelRepository.findById(hotelUpdateDto.getHotelId());
-        HotelEntity hotelEntity = byId.orElseThrow(() -> new HotelNotFoundException("No hotel was found for the given ID: " + hotelUpdateDto.getHotelId()));
+        var hotelEntity = byId.orElseThrow(() -> new HotelNotFoundException("No hotel was found for the given ID: " + hotelUpdateDto.getHotelId()));
 
         hotelEntity.setHotelName(hotelUpdateDto.getHotelName());
         hotelEntity.setPhoneNumber(hotelUpdateDto.getPhoneNumber());

@@ -12,9 +12,9 @@ import siit.hotel_booking_web_app.exceptions.customer.CustomerNotFoundException;
 import siit.hotel_booking_web_app.exceptions.loyalty.LoyaltyNotFoundException;
 import siit.hotel_booking_web_app.mapper.customer.CustomerDtoToNttMapper;
 import siit.hotel_booking_web_app.mapper.customer.CustomerNttToDtoMapper;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerCreateNewDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerRequestDto;
-import siit.hotel_booking_web_app.model.dto.customerDto.CustomerUpdateDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerCreateNewDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerRequestDto;
+import siit.hotel_booking_web_app.model.dto.customer_dto.CustomerUpdateDto;
 import siit.hotel_booking_web_app.model.entities.CustomerEntity;
 
 import siit.hotel_booking_web_app.model.entities.CustomerLoyaltyEntity;
