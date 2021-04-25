@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import siit.hotel_booking_web_app.exceptions.reservation.ReservationNotPossibleException;
 import siit.hotel_booking_web_app.mapper.reservation.ReservationNttToDtoMapper;
@@ -39,14 +38,14 @@ public class ReservationService {
     public List<ReservationRequestDto> findAllReservations() {
         return reservationRepository.findAll()
                 .stream()
-                .map(ReservationEntity -> reservationNttToDtoMapper.mapNttToDto(ReservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
     public List<ReservationRequestDto> findReservationById(Integer reservationId) {
         return reservationRepository.findById(reservationId)
                 .stream()
-                .map(ReservationEntity -> reservationNttToDtoMapper.mapNttToDto(ReservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -56,7 +55,7 @@ public class ReservationService {
 
         return reservationRepository.findByCustomerId(customerEntity)
                 .stream()
-                .map(ReservationEntity -> reservationNttToDtoMapper.mapNttToDto(ReservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -65,7 +64,7 @@ public class ReservationService {
 
         return reservationRepository.findByHotel(hotelEntity)
                 .stream()
-                .map(ReservationEntity -> reservationNttToDtoMapper.mapNttToDto(ReservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -77,7 +76,7 @@ public class ReservationService {
         return reservationRepository.findByHotel(hotelEntity)
                 .stream()
                 .filter(reservationEntity -> reservationEntity.getCustomerId().equals(customerEntity))
-                .map(ReservationEntity -> reservationNttToDtoMapper.mapNttToDto(ReservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -86,7 +85,7 @@ public class ReservationService {
 
         return reservationRepository.findAllByStatus(reservationStatusEntity)
                 .stream()
-                .map(reservationEntity -> reservationNttToDtoMapper.mapNttToDto(reservationEntity))
+                .map(reservationNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -172,9 +171,9 @@ public class ReservationService {
 
     public List<ReservationCreateNewDto> createReservationNttFromList(List<ReservationFromDTOtoNTT> toCreate) {
         return toCreate.stream()
-                .map(h->createReservationNtt(h))
-                .map(h -> reservationRepository.save(h))
-                .map(reservationEntity -> reservationNttToDtoMapper.createDTOFromNTT(reservationEntity))
+                .map(this::createReservationNtt)
+                .map(reservationRepository::save)
+                .map(reservationNttToDtoMapper::createDTOFromNTT)
                 .collect(toList());
     }
 

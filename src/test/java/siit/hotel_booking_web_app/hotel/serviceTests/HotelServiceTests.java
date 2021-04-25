@@ -118,10 +118,7 @@ public class HotelServiceTests {
             .rating(2)
             .hotelHasRoomsEntitiesList(HOTEL_ROOMS_LIST)
             .build();
-    private final RoomTypeEntity ROOM_TYPE = RoomTypeEntity.builder()
-            .roomTypeId(2)
-            .roomType("Double")
-            .build();
+
 
     @Test
     public void getAllHotels_givenNoHotels_thenReturnEmptyList() {
