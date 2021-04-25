@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.CHAR_2D_ARRAY;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,13 +47,13 @@ public class CustomerServiceTest {
     @Mock
     private CustomerLoyaltyRepository customerLoyaltyRepository;
 
-    public final CustomerLoyaltyEntity CUSTOMER_Loyalty = CustomerLoyaltyEntity.builder()
+    private CustomerLoyaltyEntity CUSTOMER_Loyalty = CustomerLoyaltyEntity.builder()
             .loyaltyId(1)
             .loyaltyLevelName("Unranked")
             .discountPercent(0)
             .build();
 
-    public final CustomerEntity CUSTOMER_ENTITY = CustomerEntity.builder()
+    private CustomerEntity CUSTOMER_ENTITY = CustomerEntity.builder()
             .customerId(1)
             .firstName("Florin")
             .lastName("Piersic")
@@ -67,7 +66,7 @@ public class CustomerServiceTest {
             .loyaltyLevel(CUSTOMER_Loyalty)
             .build();
 
-    public final CustomerRequestDto CUSTOMER_DTO = CustomerRequestDto.builder()
+    private CustomerRequestDto CUSTOMER_DTO = CustomerRequestDto.builder()
             .customerId(1)
             .firstName("Florin")
             .lastName("Piersic")
@@ -80,7 +79,7 @@ public class CustomerServiceTest {
             .loyaltyLevel(CUSTOMER_Loyalty)
             .build();
 
-    public final CustomerCreateNewDto NEW_CUSTOMER_CREATE_DTO = CustomerCreateNewDto.builder()
+    private CustomerCreateNewDto NEW_CUSTOMER_CREATE_DTO = CustomerCreateNewDto.builder()
             .firstName("Florin")
             .lastName("Piersic")
             .socialId("ZV123123")
@@ -101,7 +100,6 @@ public class CustomerServiceTest {
 
         assertThat(allCustomers).isNotNull();
         assertThat(allCustomers.isEmpty()).isTrue();
-
     }
 
     @Test
@@ -121,12 +119,10 @@ public class CustomerServiceTest {
         assertThat(allCustomers.size()).isEqualTo(3);
         assertThat(allCustomers.get(0)).isNotNull();
         assertThat(allCustomers.get(0).getCity()).isEqualTo(CUSTOMER_ENTITY.getCity());
-
     }
 
     @Test
     public void getCustomerDetails_givenExistingCustomerId_thenReturnCustomerDetails() {
-
 
         when(customerRepository.findById(1)).thenReturn(Optional.ofNullable(CUSTOMER_ENTITY));
         assert CUSTOMER_ENTITY != null;
@@ -134,12 +130,11 @@ public class CustomerServiceTest {
         CustomerRequestDto customerRequestDto = customerService.getCustomerById(1);
 
         assertThat(customerRequestDto).isNotNull().isEqualTo(CUSTOMER_DTO);
-//        assertThat(customerRequestDto).isEqualTo(CUSTOMER_DTO);
     }
 
 
     @Test
-    public void getCustomerDetails_givenExistingCustomerIdIfCustomerDoesntExist_thenReturnException() {
+    public void getCustomerDetails_givenInvalidCustomerId_thenReturnException() {
 
         Integer customerId = 1;
 
@@ -197,31 +192,24 @@ public class CustomerServiceTest {
         assertThat(newCustomer.getFirstName()).isEqualTo(CUSTOMER_ENTITY.getFirstName());
 
     }
-//
-//    @Test
-//    public void updateCustomerDetails_givenNewValues_returnNewCustomerDetails() {
-//
-//
-//    }
 
+    @Test
+    public void updateCustomerDetails_givenNewValues_returnNewCustomerDetails() {
 
-    public CustomerRequestDto updateCustomerNtt(CustomerUpdateDto customerUpdateDto) {
-        Optional<CustomerEntity> byId = customerRepository.findById(customerUpdateDto.getCustomerId());
-        CustomerEntity customerEntity = byId.orElseThrow(() -> new CustomerNotFoundException("No customer was found for the given ID: " + customerUpdateDto.getCustomerId()));
+        CustomerUpdateDto customerUpdateDto = CustomerUpdateDto.builder()
+                .customerId(1)
+                .city("Bucuresti")
+                .firstName("Mihai")
+                .phoneNumber("0722222222")
+                .build();
 
+        when(customerRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(CUSTOMER_ENTITY));
+        when(customerLoyaltyRepository.getOne(ArgumentMatchers.any())).thenReturn(CUSTOMER_Loyalty);
+        when(customerNttToDtoMapper.mapNttToDto(CUSTOMER_ENTITY)).thenReturn(CUSTOMER_DTO);
 
-        customerEntity.setFirstName(customerUpdateDto.getFirstName());
-        customerEntity.setLastName(customerUpdateDto.getLastName());
-        customerEntity.setCustomerEmail(customerUpdateDto.getCustomerEmail());
-        customerEntity.setPhoneNumber(customerUpdateDto.getPhoneNumber());
-        customerEntity.setCountry(customerUpdateDto.getCountry());
-        customerEntity.setCity(customerUpdateDto.getCity());
-        customerEntity.setAddress(customerUpdateDto.getAddress());
-        customerEntity.setLoyaltyLevel(customerLoyaltyRepository.getOne(customerUpdateDto.getLoyaltyLevel()));
+        var result = customerService.updateCustomerNtt(customerUpdateDto);
 
-        return customerNttToDtoMapper.mapNttToDto(customerEntity);
-
+        assertThat(result).isNotNull()
+                .isSameAs(CUSTOMER_DTO);
     }
-
-
 }

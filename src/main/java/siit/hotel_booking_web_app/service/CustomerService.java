@@ -66,9 +66,10 @@ public class CustomerService {
 
     @Transactional
     public CustomerRequestDto updateCustomerNtt(CustomerUpdateDto customerUpdateDto) {
+
+
         Optional<CustomerEntity> byId = customerRepository.findById(customerUpdateDto.getCustomerId());
         CustomerEntity customerEntity = byId.orElseThrow(() -> new CustomerNotFoundException("No customer was found for the given ID: " + customerUpdateDto.getCustomerId()));
-
 
         customerEntity.setFirstName(customerUpdateDto.getFirstName());
         customerEntity.setLastName(customerUpdateDto.getLastName());
