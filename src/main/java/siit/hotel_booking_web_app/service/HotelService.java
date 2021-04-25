@@ -37,13 +37,12 @@ public class HotelService {
     public List<HotelRequestDto> returnAll() {
         return hotelRepository.findAll()
                 .stream()
-                .map(hotelEntity -> hotelNttToDtoMapper.mapNttToDto(hotelEntity))
+                .map(hotelNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
     public HotelRequestWithFilteredRoomDetailsDTO hotelById(Integer hotelId) {
-        return hotelNttToDtoMapper.mapNttToDtoSecond(hotelRepository.findById(hotelId).orElseThrow());
-
+        return hotelNttToDtoMapper.mapNttToDtoSecond(hotelRepository.findById(hotelId).orElseThrow(() -> new HotelNotFoundException("Hotel not found for Id: " + hotelId +". Please provide a valid Hotel ID.")));
     }
 
     public HotelRequestDto hotelWithAllDetailsById(Integer hotelId) {
@@ -53,7 +52,7 @@ public class HotelService {
     public List<HotelRequestDto> returnAllByCountry(String country) {
         return hotelRepository.findAllByCountry(country)
                 .stream()
-                .map(hotelEntity -> hotelNttToDtoMapper.mapNttToDto(hotelEntity))
+                .map(hotelNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
@@ -61,14 +60,14 @@ public class HotelService {
     public List<HotelRequestDto> returnAllByCity(String city) {
         return hotelRepository.findAllByCity(city)
                 .stream()
-                .map(hotelEntity -> hotelNttToDtoMapper.mapNttToDto(hotelEntity))
+                .map(hotelNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
     public List<HotelRequestDto> returnAllByRating(Integer rating) {
         return hotelRepository.findAllByRating(rating)
                 .stream()
-                .map(hotelEntity -> hotelNttToDtoMapper.mapNttToDto(hotelEntity))
+                .map(hotelNttToDtoMapper::mapNttToDto)
                 .collect(toList());
     }
 
